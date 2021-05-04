@@ -55,7 +55,7 @@ class reclamationC{
     }
 
     function tridsc(){
-        $query = "SELECT * FROM `reclamations` ORDER BY `Idr` DESC";
+        $query = "SELECT * FROM `reclamations` ORDER BY `Id` DESC";
         $db= config::getConnexion();
         try { 
             $liste = $db->query($query);
@@ -66,7 +66,7 @@ class reclamationC{
     }
 
     function triasc(){
-        $query = "SELECT * FROM `reclamations` ORDER BY `Idr` ASC";
+        $query = "SELECT * FROM `reclamations` ORDER BY `Id` ASC";
         $db= config::getConnexion();
         try { 
             $liste = $db->query($query);

@@ -140,9 +140,59 @@ class userC {
         }
       return $message;
     }
+    function tridscu(){
+        $query = "SELECT * FROM `etudiants` ORDER BY `classe` DESC";
+        $db= config::getConnexion();
+        try { 
+            $liste = $db->query($query);
+        return $liste;
+        }
+        catch (Exception $e)
+        {die ('Erreur:'.$e->getMessage());}
+    }
 
+    function triascu(){
+        $query = "SELECT * FROM `etudiants` ORDER BY `classe` ASC";
+        $db= config::getConnexion();
+        try { 
+            $liste = $db->query($query);
+        return $liste;
+        }
+        catch (Exception $e)
+        {die ('Erreur:'.$e->getMessage());}
+    }
  
+    static function RecEmail($email){
+        $sql="SELECT * FROM etudiants WHERE Email ='".$email."'";
+        $db = config::getConnexion();
+        try{
+            $query=$db->prepare($sql);
+            $query->execute();
+            $count=$query->rowCount();
+            if($count==0) {
+                $message = "Désolé, votre Adresse est inexistante";
+            } else {
+                $x=$query->fetch();
+                $message = $x['mdp'];
+            }
+        }
+        catch (Exception $e){
+                $message= " ".$e->getMessage();
+        }
+      return $message;
+    }
 
+    function findEmail($id){
+        $sql = "SELECT Email FROM etudiants WHERE Id= :id";
+        $db = config::getConnexion();
+        $query = $db->prepare($sql);
+        $query->bindvalue(':id',$id );
+        try {  $query->execute();
+            
+        }
+        catch (Exception $e)
+        {die ('Erreur:'.$e->getMessage());}
+    }
 
 
 

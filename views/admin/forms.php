@@ -5,6 +5,109 @@
     include_once '../../controller/reclamationC.php';
     include_once '../../model/reclamation.php';
     
+    $connection=mysqli_connect('localhost','root','','web');
+    $sexeClasse1=mysqli_query($connection, "SELECT  count(*),sexe FROM etudiants where classe='1' GROUP BY sexe");
+    $sexeClasse2=mysqli_query($connection, "SELECT  count(*),sexe FROM etudiants where classe='2' GROUP BY sexe");
+    $sexeClasse3=mysqli_query($connection, "SELECT  count(*),sexe FROM etudiants where classe='3' GROUP BY sexe");
+    $sexeClasse4=mysqli_query($connection, "SELECT  count(*),sexe FROM etudiants where classe='4' GROUP BY sexe");
+    $sexeClasse5=mysqli_query($connection, "SELECT  count(*),sexe FROM etudiants where classe='5' GROUP BY sexe");
+
+
+    $data1=array();
+    $h=0;
+    $f=0;
+    $a=0;
+    while($row = mysqli_fetch_array($sexeClasse1)){
+        if($row[1]=="homme"){
+          
+           $h=$row[0];
+        }
+        if($row[1]=="femme"){
+          $f=$row[0];
+        }
+        if($row[1]=="autre"){
+            $a=$row[0];
+        }
+    }   
+    array_push($data1,$h,$f,$a);
+    $h=0;
+    $f=0;
+    $a=0;
+
+
+
+    $data2=array();
+    while($row = mysqli_fetch_array($sexeClasse2)){
+        if($row[1]=="homme"){
+          $h=$row[0];
+        }
+        if($row[1]=="femme"){
+          $f=$row[0];
+        }
+        if($row[1]=="autre"){
+          $a=$row[0];
+        }
+    }   
+    array_push($data2,$h,$f,$a);
+    $h=0;
+    $f=0;
+    $a=0;
+
+    $data3=array();
+    while($row = mysqli_fetch_array($sexeClasse3)){
+        if($row[1]=="homme"){
+          $h=$row[0];
+        }
+        if($row[1]=="femme"){
+          $f=$row[0];
+        }
+        if($row[1]=="autre"){
+          $a=$row[0];
+        }
+    }   
+    array_push($data3,$h,$f,$a);
+    $h=0;
+    $f=0;
+    $a=0;
+     
+    $data4=array();
+    while($row = mysqli_fetch_array($sexeClasse4)){
+        if($row[1]=="homme"){
+          $h=$row[0];
+        }
+        if($row[1]=="femme"){
+          $f=$row[0];
+        }
+        if($row[1]=="autre"){
+          $a=$row[0];
+        }
+    }   
+    array_push($data4,$h,$f,$a);
+    $h=0;
+    $f=0;
+    $a=0;
+       
+    $data5=array();
+    while($row = mysqli_fetch_array($sexeClasse5)){
+        if($row[1]=="homme"){
+          $h=$row[0];
+        }
+        if($row[1]=="femme"){
+          $f=$row[0];
+        }
+        if($row[1]=="autre"){
+          $a=$row[0];
+        }
+    }   
+    array_push($data5,$h,$f,$a);
+    $h=0;
+    $f=0;
+    $a=0;
+       
+        
+
+
+
     $userC = new userC();
     $reclamationC = new reclamationC();
 
@@ -59,6 +162,30 @@ if(isset($_POST['ASC']))
 { 
   $listeR=$reclamationC->triasc();
 }
+if(isset($_POST['DSCU']))
+{ 
+  $listeU=$userC->tridscu();
+}
+ 
+if(isset($_POST['ASCU']))
+{ 
+  $listeU=$userC->triascu();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -134,51 +261,35 @@ if(isset($_POST['ASC']))
               <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="index.html" class="navbar-brand">
                   <div class="brand-text d-none d-md-inline-block"><strong class="text-primary"> Esprit</strong><span>thèque </span></div></a></div>
               <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-                <!-- Notifications dropdown-->
-                <li class="nav-item dropdown"> <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-bell"></i><span class="badge badge-warning">12</span></a>
-                  <ul aria-labelledby="notifications" class="dropdown-menu">
-                    <li><a rel="nofollow" href="#" class="dropdown-item"> 
-                        <div class="notification d-flex justify-content-between">
-                          <div class="notification-content"><i class="fa fa-envelope"></i>You have 6 new messages </div>
-                          <div class="notification-time"><small>4 minutes ago</small></div>
-                        </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item"> 
-                        <div class="notification d-flex justify-content-between">
-                          <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
-                          <div class="notification-time"><small>4 minutes ago</small></div>
-                        </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item"> 
-                        <div class="notification d-flex justify-content-between">
-                          <div class="notification-content"><i class="fa fa-upload"></i>Server Rebooted</div>
-                          <div class="notification-time"><small>4 minutes ago</small></div>
-                        </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item"> 
-                        <div class="notification d-flex justify-content-between">
-                          <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
-                          <div class="notification-time"><small>10 minutes ago</small></div>
-                        </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-bell"></i>view all notifications                                            </strong></a></li>
-                  </ul>
-                </li>
+                
                 <!-- Messages dropdown-->
-                <li class="nav-item dropdown"> <a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-envelope"></i><span class="badge badge-info">10</span></a>
+                 <?php
+                 $sql_get = mysqli_query($connection,"SELECT * FROM reclamations WHERE status=0");
+                 $count= mysqli_num_rows($sql_get);
+                 ?>
+
+
+                <li class="nav-item dropdown"> <a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-bell"></i><span class="badge badge-danger" id="count" ><?php echo $count; ?></span></a>
                   <ul aria-labelledby="notifications" class="dropdown-menu">
-                    <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
-                        <div class="msg-profile"> <img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                        <div class="msg-body">
-                          <h3 class="h5">Jason Doe</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
-                        </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
-                        <div class="msg-profile"> <img src="img/avatar-2.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                        <div class="msg-body">
-                          <h3 class="h5">Frank Williams</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
-                        </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
-                        <div class="msg-profile"> <img src="img/avatar-3.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                        <div class="msg-body">
-                          <h3 class="h5">Ashley Wood</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
-                        </div></a></li>
-                    <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-envelope"></i>Read all messages    </strong></a></li>
+                    <?php 
+                    $sql_get1 = mysqli_query($connection,"SELECT * FROM reclamations WHERE status=0");
+                    if (mysqli_num_rows($sql_get1)>0)
+                  {
+                    while($result=mysqli_fetch_assoc($sql_get1))
+                    { 
+                      echo '<a class="dropdown-item text-dark font-weight-bold href="#">'.$result['Sujet'].'</a>';
+                      echo '<a class="dropdown-item text-danger href="#">'.$result['comment'].'</a>';
+                      echo '<div class="dropdown-divider"></div>';
+                      
+                    }
+                  }
+                  else 
+                  {
+                    echo "Pas de notifications";
+                  } ?>
+
+                          
+                    <li><a rel="nofollow" href="#rec" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-list"></i> Voir tous les détails</strong></a></li>
                   </ul>
                 </li>
                
@@ -212,9 +323,15 @@ if(isset($_POST['ASC']))
                   <input type="text" name="valueToSearch" placeholder="valeur à chercher" style="width:150px; height:39px;">
                  
                  <button type="submit"  class="btn btn-dark" name="search"  >  <i class="fa fa-search" > </i></button>
-                 <br><br>
+          
+                 <button type="submit" class="btn btn-danger pull-right " name="ASCU" value="ASCU">  <i class="fa fa-sort-up"> </i></button>
+                  <button type="submit" class="btn btn-danger pull-right" style="margin-right:10px;"  name="DSCU" value="DSCU" >  <i class="fa fa-sort-down"> </i></button>
+                  <br><br>
+                
               </form>
-                  
+              <form action="excel.php" method="post">
+                 <input type="submit" name="export_excel" class="btn btn-success  pull-right" value="excel"/>
+                </form>
             
                 </div>
                 <div class="card-body">
@@ -251,7 +368,11 @@ if(isset($_POST['ASC']))
                            <td><?php echo "<img class='img-fluid rounded-circle' width='50%' src='../uploads/".$user['pic']."'>"; ?></td>
                            
                            <td>
-
+                           <form action="avertissement.php" method="POST">
+                               <input type="hidden" name="avertissement" value="<?php echo $user['Id']; ?>" >
+                              
+                               <button type="submit" class="btn btn-danger "  >  <i class="fa fa-exclamation-triangle" > </i></button>
+                             </form>
                              <form action="supression.php" method="POST">
                                <input type="hidden" name="id" value="<?php echo $user['Id']; ?>" >
                               
@@ -283,7 +404,7 @@ if(isset($_POST['ASC']))
                 </div>
                 <div class="card-body">
                   <p>Veuillez remplir les champs suivants:</p>
-                  <form  onsubmit="return verif()"  action="test.php" > 
+                  <form  method="POST" onsubmit="return verif()"  action="test.php" > 
                     <div class="form-group">
                       <label>Prénom</label>
                       <input type="text" name="name" id="name" class="form-control"  value="<?php if (isset($prenom)) echo $prenom; ?>" >
@@ -320,7 +441,7 @@ if(isset($_POST['ASC']))
                   <option value="5">5ème Année</option>
                   
 
-                </select>
+                 </select>
 
                     </div>
                     <div class="form-group">
@@ -345,8 +466,8 @@ if(isset($_POST['ASC']))
 
                     </div >     
                    
-                   <button name="submit" class="btn btn-dark" style="margin-left:170px;">  <i class="fa fa-plus" > </i></button>
-                   <button name="updatesubmit" class="btn btn-dark" >  <i class="fa fa-save" > </i></button>
+                   <button  name="submit" class="btn btn-dark" style="margin-left:170px;">  <i class="fa fa-plus" > </i></button>
+                   <button type="submit" name="updatesubmit" class="btn btn-dark" >  <i class="fa fa-save" > </i></button>
                    
                     </div>
                   </form>
@@ -362,15 +483,16 @@ if(isset($_POST['ASC']))
 
             <div class="col-lg-6">
               <div class="card">
-                <div class="card-header">
+                <div id="rec" class="card-header">
                   <h4>Lise des réclamations</h4> <br>
                   <form method="POST">
                   <input type="text" name="valueToSearch1" placeholder="valeur à chercher" style="width:150px; height:39px;">
                   <button type="submit"  class="btn btn-dark" name="search1" >  <i class="fa fa-search" > </i></button>
-                  <button type="submit" class="btn btn-danger pull-right " name="ASC" value="ASC">  <i class="fa fa-sort-up"> </i></button>
+                  <a target="_blank" href="generate_pdf.php" class="btn btn-dark pull-right" > <i class="icon-bill"></i></a>
+                  <button type="submit" class="btn btn-danger pull-right " style="margin-right:10px;" name="ASC" value="ASC">  <i class="fa fa-sort-up"> </i></button>
                   <button type="submit" class="btn btn-danger pull-right" style="margin-right:10px;"  name="DSC" value="DSC" >  <i class="fa fa-sort-down"> </i></button><br><br>
               </form>
-                  
+              
             
                 </div>
                 <div class="card-body">
@@ -399,7 +521,7 @@ if(isset($_POST['ASC']))
 
                              <form action="supressionReclamation.php" method="POST">
                                <input type="hidden" name="idr" value="<?php echo $reclamation['Idr']; ?>" >
-                               <button type="submit" class="btn btn-danger " value="Supprimer "  >  <i class="fa fa-trash" > </i></button>
+                               <button type="submit" class="btn btn-danger " value="Supprimer ">  <i class="fa fa-trash" > </i></button>
                              </form>
 
                             
@@ -410,7 +532,52 @@ if(isset($_POST['ASC']))
                           } ?>
                       
                     </table>
+                    <br>
+
+
+
+
                   </div>
+                    <br>
+                    <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data2 = google.visualization.arrayToDataTable([
+          ['classe', 'homme','femme','autre'],
+          <?php
+            echo "['Classe 1', $data1[0], $data1[1], $data1[2]],";
+            echo "['Classe 2', $data2[0], $data2[1], $data2[2]],"; 
+            echo "['Classe 3', $data3[0], $data3[1], $data3[2]],"; 
+            echo "['Classe 4', $data4[0], $data4[1], $data4[2]],"; 
+            echo "['Classe 5', $data5[0], $data5[1], $data5[2]],"; 
+          ?>
+        ]);
+
+        var options = { 
+            title: 'Nombre des étudiants par classe',
+            subtitle: 'Homme, Femme, et autre',
+            vAxis: {}
+          
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data2, google.charts.Bar.convertOptions(options));
+      } 
+    </script> <div id="columnchart_material" style="width: 800px; height: 500px;"></div></div></div>
+
+
+
+
+
+
+
+
                 </div>
               </div>
               

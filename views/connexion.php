@@ -19,7 +19,7 @@ if (isset($_POST["id"]) &&
             $message='pseudo ou le mot de passe est incorrect';
         }}
     else
-        $message = "Missing information";}
+        $message = "Merci de Saisir vos cordonnées";}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,7 +67,7 @@ if (isset($_POST["id"]) &&
   <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center justify-content-lg-between">
 
-      <h1 class="logo me-auto me-lg-0"><a href="index.html">Gp<span>.</span></a></h1>
+      <h1 class="logo me-auto me-lg-0"><a href="index.html"><span>E</span>T<span>.</span></a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
@@ -160,7 +160,9 @@ if (isset($_POST["id"]) &&
             </div>
             <br>
             <div class="btn-login"><button type="submit" >Connexion</button></div><br>
+            <a href="forget.php"> Mot de passe oublié? <a>
           </form>
+          
           <?php
             echo $message;
           ?>

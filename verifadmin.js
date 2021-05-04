@@ -19,7 +19,7 @@ function verif(){
 		errors+="<li>Le nom doit commencer par une lettre majuscule</li>";
 		er=1;
 	}
-    if(nom.length==0){
+    if(prenom.length==0){
 		errors+="<li> veuillez saisir un prénom </li>";
 		er=1;
 	}
@@ -63,11 +63,10 @@ function verif(){
 			er=1;
 		}
 	}
-	
 
 	errors+="</ul>";
 	document.getElementById("erreur").innerHTML=errors;
-	if(er==1){
+	if(er===1){
 		return false;
 	}
 	return true;
