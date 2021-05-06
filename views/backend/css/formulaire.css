@@ -1,0 +1,68 @@
+.titre1{
+    text-align: center;
+    color: #33b35a;
+}
+
+.form-size{
+    width: 500px;
+    margin-left: auto;
+    margin-right:auto;
+}
+.form-selectProd{
+    width: 220px;
+    height: 40px;
+    padding: 0.45rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    border-radius: 0;
+    display: block;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+
+}
+
+.btn-engrst{
+    margin-top: 8px;   
+}
+
+.btnSpecial{
+    font-weight: 400;
+    border: 1px solid transparent;
+    padding: 0.45rem 0.75rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    border-radius: 0;
+    color: white;
+}
+
+.btn-table > i{
+    background: none;
+    border: none;
+    color: #33b35a;
+}
+
+.green{
+    color: #33b35a;
+}
+
+.btn-table {
+    background: none;
+    border: none;
+    color: #33b35a;
+}
+
+.btn-table:hover{
+    background: none;
+    color: #33b35a;
+}
+
+.white{
+    color:white;
+}
+
+.alert-msg{ 
+    text-align: center;
+    height: 50px;
+}
