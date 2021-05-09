@@ -120,426 +120,159 @@ include ('../../config.php') ;
 
 
                 </div>
-                <div class="col-xl-2 col-md-4">
-                    <div class="icon-box">
-                        <i class="ri-calendar-todo-line"></i>
-                        <h3><a href="test.php">QUIZ</a></h3>
-                    </div>
-
-
-                </div>
 
 
     </section>
     
 
-    <body>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2" style="margin-top: 5%;">
-                    <div class="row">
-
-                        <?php 
-
-     if(isset($_GET['search'])){
-        $searchKey = $_GET['search'];
-        $sql = "SELECT * FROM cours WHERE matiere LIKE '%$searchKey%'";
-     }else
-     $sql = "SELECT * FROM cours";
-     $result = $conn->query($sql);
-   ?>
-
-                        <form action="" method="GET">
-                            <div class="col-md-6">
-                                <input type="text" name="search" class='form-control' placeholder="Search By Name"
-                                    value=<?php echo @$_GET['search']; ?>>
-                            </div>
-                            <div class="col-md-6 text-left">
-                                <button class="btn">Search</button>
-                            </div>
-                        </form>
-
-                        <br>
-                        <br>
-                    </div>
-
-                    <table class="table table-bordered">
-                        <tr>
-                            <th>id</th>
-                            <th>matiere</th>
-                            <th>titre</th>
-                            <th>annee</th>
-                        </tr>
-                        <?php while( $row = $result->fetch_object() ): ?>
-                        <tr>
-                            <td><?php echo $row->id; ?></td>
-                            <td><?php echo $row->matiere; ?></td>
-                            <td><?php echo $row->titre; ?></td>
-                            <td><?php echo $row->annee; ?></td>
-                        </tr>
-                        <?php endwhile; ?>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <!-- End Hero -->
-
+<!-- Collect the nav links, forms, and other conntent for toggling -->
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-left">
+            <li <?php if(@$_GET['q']==1) echo'class="active"'; ?> ><a href="test.php?q=1"><span class="glyphiconn glyphiconn-home" aria-hidden="true"></span>&nbsp;Home<span class="sr-only">(current)</span></a></li>
+            <li <?php if(@$_GET['q']==2) echo'class="active"'; ?>> <a href="test.php?q=2"><span class="glyphiconn glyphiconn-list-alt" aria-hidden="true"></span>&nbsp;History</a></li>
+            <li <?php if(@$_GET['q']==3) echo'class="active"'; ?>> <a href="test.php?q=3"><span class="glyphiconn glyphiconn-stats" aria-hidden="true"></span>&nbsp;Ranking</a></li>
+            
         
-    <!-- ======= About Section ======= -->
-
-    <section id="about" class="about">
-      <div class="container" data-aos="fade-up">
-
-        <div class="row">
-          <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
-            <img src="assets/img/asma50.jpeg" class="img-fluid" alt="">
-          </div>
-          <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content" data-aos="fade-right" data-aos-delay="100">
-            <h3>ESPRITHEQUE vous permet de créer votre propre CLASSROOM en consultant tous les cours souhaités</h3>
+        
             
-            <ul>
-              <li><i class="ri-check-double-line"></i> 1ére année et 2éme année (tronc commun TIC)</li>
-              <li><i class="ri-check-double-line"></i> 3éme année et 4éme année (options télécommunication).</li>
-
-            </ul>
            
-          </div>
+       
         </div>
-
-      </div>
-    </section><!-- End About Section -->
-
-    <!-- ======= Clients Section ======= -->
-    <section id="clients" class="clients">
-      <div class="container" data-aos="zoom-in">
-
-        <div class="clients-slider swiper-container">
-          <div class="swiper-wrapper align-items-center">
-            <div class="swiper-slide"><img src="assets/img/clients/logo1.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="assets/img/clients/logo2.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="assets/img/clients/logo3.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="assets/img/clients/logo4.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="assets/img/clients/logo5.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="assets/img/clients/logo6.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="assets/img/clients/logo7.jpg" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="assets/img/clients/logo8.jpg" class="img-fluid" alt=""></div>
-          </div>
-          <div class="swiper-pagination"></div>
-        </div>
-
-      </div>
-    </section><!-- End Clients Section -->
-
-    
-    <!-- ======= 1ere annee Section ======= -->
-    <section id="1ere annee" class="services">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>1ére année</h2>
-        </div>
-
+    </div>
+    </nav>
+    <br><br>
+    <div class="conntainer">
         <div class="row">
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bxl-dribbble"></i></div>
-              <h4><a href="">mathématiques de base 1 </a></h4>
-              
-            </div>
-          </div>
+            <div class="col-md-12">
+                <?php if(@$_GET['q']==1) 
+                {
+                    $result = mysqli_query($conn,"SELECT * FROM quiz ORDER BY date DESC") or die('Error');
+                    echo  '<div class="panel"><div class="table-responsive"><table class="table table-striped title1">
+                    <tr><td><center><b>S.N.</b></center></td><td><center><b>Topic</b></center></td><td><center><b>Total question</b></center></td><td><center><b>Marks</center></b></td><td><center><b>Action</b></center></td></tr>';
+                    $c=1;
+                    while($row = mysqli_fetch_array($result)) {
+                        $title = $row['title'];
+                        $total = $row['total'];
+                        $sahi = $row['sahi'];
+                        $eid = $row['eid'];
+                    $q12=mysqli_query($conn,"SELECT score FROM history WHERE eid='$eid' AND email='$email'" )or die('Error98');
+                    $rowcount=mysqli_num_rows($q12);	
+                    if($rowcount == 0){
+                        echo '<tr><td><center>'.$c++.'</center></td><td><center>'.$title.'</center></td><td><center>'.$total.'</center></td><td><center>'.$sahi*$total.'</center></td><td><center><b><a href="quiz.php?q=quiz&step=2&eid='.$eid.'&n=1&t='.$total.'" class="btn sub1" style="color:black;margin:0px;background:#1de9b6"><span class="glyphiconn glyphiconn-new-window" aria-hidden="true"></span>&nbsp;<span class="title1"><b>Start</b></span></a></b></center></td></tr>';
+                    }
+                    else
+                    {
+                    echo '<tr style="color:#99cc32"><td><center>'.$c++.'</center></td><td><center>'.$title.'&nbsp;<span title="This quiz is already solve by you" class="glyphiconn glyphiconn-ok" aria-hidden="true"></span></center></td><td><center>'.$total.'</center></td><td><center>'.$sahi*$total.'</center></td><td><center><b><a href="update.php?q=quizre&step=25&eid='.$eid.'&n=1&t='.$total.'" class="pull-right btn sub1" style="color:black;margin:0px;background:red"><span class="glyphiconn glyphiconn-repeat" aria-hidden="true"></span>&nbsp;<span class="title1"><b>Restart</b></span></a></b></center></td></tr>';
+                    }
+                    }
+                    $c=0;
+                    echo '</table></div></div>';
+                }?>
 
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in"
-            data-aos-delay="200">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="">Communication,culture et citoyenneté f1</a></h4>
-            </div>
-          </div>
+                <?php
+                    if(@$_GET['q']== 'quiz' && @$_GET['step']== 2) 
+                    {
+                        $eid=@$_GET['eid'];
+                        $sn=@$_GET['n'];
+                        $total=@$_GET['t'];
+                        $q=mysqli_query($conn,"SELECT * FROM questions WHERE eid='$eid' AND sn='$sn' " );
+                        echo '<div class="panel" style="margin:5%">';
+                        while($row=mysqli_fetch_array($q) )
+                        {
+                            $qns=$row['qns'];
+                            $qid=$row['qid'];
+                            echo '<b>Question &nbsp;'.$sn.'&nbsp;::<br /><br />'.$qns.'</b><br /><br />';
+                        }
+                        $q=mysqli_query($conn,"SELECT * FROM options WHERE qid='$qid' " );
+                        echo '<form action="update.php?q=quiz&step=2&eid='.$eid.'&n='.$sn.'&t='.$total.'&qid='.$qid.'" method="POST"  class="form-horizontal">
+                        <br />';
 
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in"
-            data-aos-delay="300">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-tachometer"></i></div>
-              <h4><a href="">électronique</a></h4>
-            </div>
-          </div>
+                        while($row=mysqli_fetch_array($q) )
+                        {
+                            $option=$row['option'];
+                            $optionid=$row['optionid'];
+                            echo'<input type="radio" name="ans" value="'.$optionid.'">&nbsp;'.$option.'<br /><br />';
+                        }
+                        echo'<br /><button type="submit" class="btn btn-primary"><span class="glyphiconn glyphiconn-lock" aria-hidden="true"></span>&nbsp;Submit</button></form></div>';
+                    }
 
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-world"></i></div>
-              <h4><a href="">Programmation C </a></h4>
-            </div>
-          </div>
+                    if(@$_GET['q']== 'result' && @$_GET['eid']) 
+                    {
+                        $eid=@$_GET['eid'];
+                        $q=mysqli_query($conn,"SELECT * FROM history WHERE eid='$eid' AND email='$email' " )or die('Error157');
+                        echo  '<div class="panel">
+                        <center><h1 class="title" style="color:#660033">Result</h1><center><br /><table class="table table-striped title1" style="font-size:20px;font-weight:1000;">';
 
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-slideshow"></i></div>
-              <h4><a href="">mathématiques de base 2</a></h4>
+                        while($row=mysqli_fetch_array($q) )
+                        {
+                            $s=$row['score'];
+                            $w=$row['wrong'];
+                            $r=$row['sahi'];
+                            $qa=$row['level'];
+                            echo '<tr style="color:#66CCFF"><td>Total Questions</td><td>'.$qa.'</td></tr>
+                                <tr style="color:#99cc32"><td>right Answer&nbsp;<span class="glyphiconn glyphiconn-ok-circle" aria-hidden="true"></span></td><td>'.$r.'</td></tr> 
+                                <tr style="color:red"><td>Wrong Answer&nbsp;<span class="glyphiconn glyphiconn-remove-circle" aria-hidden="true"></span></td><td>'.$w.'</td></tr>
+                                <tr style="color:#66CCFF"><td>Score&nbsp;<span class="glyphiconn glyphiconn-star" aria-hidden="true"></span></td><td>'.$s.'</td></tr>';
+                        }
+                        $q=mysqli_query($conn,"SELECT * FROM rank WHERE  email='$email' " )or die('Error157');
+                        while($row=mysqli_fetch_array($q) )
+                        {
+                            $s=$row['score'];
+                            echo '<tr style="color:#990000"><td>Overall Score&nbsp;<span class="glyphiconn glyphiconn-stats" aria-hidden="true"></span></td><td>'.$s.'</td></tr>';
+                        }
+                        echo '</table></div>';
+                    }
+                ?>
 
-            </div>
-          </div>
+                <?php
+                    if(@$_GET['q']== 2) 
+                    {
+                        $q=mysqli_query($conn,"SELECT * FROM history WHERE email='$email' ORDER BY date DESC " )or die('Error197');
+                        echo  '<div class="panel title">
+                        <table class="table table-striped title1" >
+                        <tr style="color:black;"><td><center><b>S.N.</b></center></td><td><center><b>Quiz</b></center></td><td><center><b>Question Solved</b></center></td><td><center><b>Right</b></center></td><td><center><b>Wrong<b></center></td><td><center><b>Score</b></center></td>';
+                        $c=0;
+                        while($row=mysqli_fetch_array($q) )
+                        {
+                        $eid=$row['eid'];
+                        $s=$row['score'];
+                        $w=$row['wrong'];
+                        $r=$row['sahi'];
+                        $qa=$row['level'];
+                        $q23=mysqli_query($conn,"SELECT title FROM quiz WHERE  eid='$eid' " )or die('Error208');
 
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-arch"></i></div>
-              <h4><a href="">Projet SDL</a></h4>
-            </div>
-          </div>
+                        while($row=mysqli_fetch_array($q23) )
+                        {  $title=$row['title'];  }
+                        $c++;
+                        echo '<tr><td><center>'.$c.'</center></td><td><center>'.$title.'</center></td><td><center>'.$qa.'</center></td><td><center>'.$r.'</center></td><td><center>'.$w.'</center></td><td><center>'.$s.'</center></td></tr>';
+                        }
+                        echo'</table></div>';
+                    }
 
-        </div>
+                    if(@$_GET['q']== 3) 
+                    {
+                        $q=mysqli_query($conn,"SELECT * FROM rank ORDER BY score DESC " )or die('Error223');
+                        echo  '<div class="panel title"><div class="table-responsive">
+                        <table class="table table-striped title1" >
+                        <tr style="color:red"><td><center><b>Rank</b></center></td><td><center><b>Name</b></center></td><td><center><b>Email</b></center></td><td><center><b>Score</b></center></td></tr>';
+                        $c=0;
 
-      </div>
-    </section><!-- End 1ere annee Section -->
-
-    <!-- ======= 2eme annee Section ======= -->
-    <section id="2eme annee" class="services">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>2éme année</h2>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bxl-dribbble"></i></div>
-              <h4><a href="">mathématiques de base 3</a></h4>
-              
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in"
-            data-aos-delay="200">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="">Communication,culture et citoyenneté f2</a></h4>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in"
-            data-aos-delay="300">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-tachometer"></i></div>
-              <h4><a href="">Architecture des microcontrolleur</a></h4>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-world"></i></div>
-              <h4><a href="">Programmation C++ </a></h4>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-slideshow"></i></div>
-              <h4><a href="">mathématiques de base 4</a></h4>
-
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-arch"></i></div>
-              <h4><a href="">Projet WEB</a></h4>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section><!-- End 2eme annee Section -->
-
-    <!-- ======= 3eme annee Section ======= -->
-    <section id="3eme annee" class="services">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>3éme année</h2>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bxl-dribbble"></i></div>
-              <h4><a href=""></a></h4>
-              
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in"
-            data-aos-delay="200">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href=""></a></h4>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in"
-            data-aos-delay="300">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-tachometer"></i></div>
-              <h4><a href=""></a></h4>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-world"></i></div>
-              <h4><a href=""> </a></h4>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-slideshow"></i></div>
-              <h4><a href=""></a></h4>
-
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-arch"></i></div>
-              <h4><a href=""></a></h4>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section><!-- End 3eme annee Section -->
-
-     <!-- ======= 4eme annee Section ======= -->
-     <section id="4eme annee" class="services">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>4éme année</h2>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bxl-dribbble"></i></div>
-              <h4><a href=""></a></h4>
-              
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in"
-            data-aos-delay="200">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href=""></a></h4>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in"
-            data-aos-delay="300">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-tachometer"></i></div>
-              <h4><a href=""></a></h4>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-world"></i></div>
-              <h4><a href=""> </a></h4>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-slideshow"></i></div>
-              <h4><a href=""></a></h4>
-
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-arch"></i></div>
-              <h4><a href="">s</a></h4>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section><!-- End 4eme annee Section -->
-
-
-    
-
-    
-
-    <!-- ======= Testimonials Section ======= -->
-    <section id="testimonials" class="testimonials">
-      <div class="container" data-aos="zoom-in">
-
-        <div class="testimonials-slider swiper-container" data-aos="fade-up" data-aos-delay="100">
-          <div class="swiper-wrapper">
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
-                <h3>Saul Goodman</h3>
-                
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  je suis trés satisfait du service de ce site,je vous remercie pour vos efforts
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                <h3>Sara Wilsson</h3>
-                
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Un simple mot pour vous remercier du service courtois et professionnel dont vous nous avez fait bénéficier.
-Votre expérience combinée à vos talents de visionnaire vont nous permettre de réaliser ce projet avec la conviction que ce qui devait être pensé, planifié et retravaillé aura été fait.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-                <h3>Jena Karlis</h3>
-                
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Ca fait plaisir de voir un tel succés
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-              </div>
-            </div><!-- End testimonial item -->
-
-            
-      </div>
-    </section><!-- End Testimonials Section -->
+                        while($row=mysqli_fetch_array($q) )
+                        {
+                            $e=$row['email'];
+                            $s=$row['score'];
+                            $q12=mysqli_query($conn,"SELECT * FROM user WHERE email='$e' " )or die('Error231');
+                            while($row=mysqli_fetch_array($q12) )
+                            {
+                                $name=$row['name'];
+                            }
+                            $c++;
+                            echo '<tr><td style="color:black"><center><b>'.$c.'</b></center></td><td><center>'.$name.'</center></td><td><center>'.$e.'</center></td><td><center>'.$s.'</center></td></tr>';
+                        }
+                        echo '</table></div></div>';
+                    }
+                ?>
+</body>
 
    <!-- ======= Team Section ======= -->
    <section id="team" class="team">
