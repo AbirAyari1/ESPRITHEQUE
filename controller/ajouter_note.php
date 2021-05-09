@@ -1,5 +1,5 @@
 <?PHP
-include_once "config.php";
+
 include "livres.php";
 session_start();
 $idc = $_GET['id'];

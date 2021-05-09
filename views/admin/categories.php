@@ -56,9 +56,18 @@ $connection=mysqli_connect('localhost','root','','web');
         <div class="main-menu">
           <h5 class="sidenav-heading">Menu</h5>
           <ul id="side-main-menu" class="side-menu list-unstyled">                  
-            <li class="active"><a href="forms.html"> <i class="icon-user"></i>Etudiants</a></li>
+            <li><a href="forms.html"> <i class="icon-user"></i>Etudiants</a></li>
             <li><a href="index.html"> <i class="icon-bill"></i>Ouvrages</a></li>
-            <li><a href="livres.php"> <i class="icon-check"></i>Livres</a></li>
+
+              <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i
+                              class="icon-interface-windows"></i>Gestion des livres </a>
+                  <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
+                      <li><a href="livres.php"> <i class="icon-check"></i>Livres</a></li>
+                      <li class="active"><a href="categories.php">Categories</a></li>
+
+                  </ul>
+              </li>
+
             <li><a href="tables.html"> <i class="icon-clock"></i>Evènements</a></li>
             <li><a href="login.html"> <i class="icon-pencil-case"></i>Cours </a></li>
             <li> <a href="#"> <i class="icon-paper-airplane"></i>Actualités</a></li>
@@ -120,14 +129,14 @@ $connection=mysqli_connect('localhost','root','','web');
         <div class="container-fluid">
           <ul class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item active">Livres</li>
+            <li class="breadcrumb-item active">Categories</li>
           </ul>
         </div>
       </div>
       <section class="forms">
         <div class="container-fluid">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ajoutModal">
-                Ajouter un livre
+                Ajouter une categorie
             </button>
             <div class="row d-flex align-items-md-stretch">
 
@@ -135,7 +144,7 @@ $connection=mysqli_connect('localhost','root','','web');
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Listes des livres</h4>
+                            <h4>Listes des Categories</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -143,15 +152,9 @@ $connection=mysqli_connect('localhost','root','','web');
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Referecne</th>
-                                        <th>Titre</th>
-                                        <th>Auteur</th>
-                                        <th>Categorie</th>
-                                        <th>Description</th>
-                                        <th>Date de sortie</th>
-                                        <th>Image</th>
-                                        <th>Prix</th>
-                                        <th>Stock</th>
+
+                                        <th>Nom</th>
+
                                         <th width="17%">Actions</th>
 
                                     </tr>
@@ -168,47 +171,44 @@ $connection=mysqli_connect('localhost','root','','web');
                                     } else {
                                         $page_1 = ($page * 6) - 6;
                                     }
-                                    $result = $l->afficher($page_1);
+                                    $result = $c->afficher($page_1);
 
-                                    $count = ceil(($l->count()) / 6);
+                                    $count = ceil(($c->count()) / 6);
 
 
                                     ?>
                                     <tbody>
                                     <?php
                                     $j = 0;
-                                    foreach ($result as $row)
+                                    foreach ($result
 
-                                    {   $j++; ?>
+                                    as $row)
+
+                                    {
+                                    $j++; ?>
                                     <tr>
-                                        <th scope="row"><?php echo $j ; ?></th>
-                                        <td><?php echo $row["reference"]; ?></td>
-                                        <td><?php echo $row["titre"]; ?></td>
-                                        <td><?php echo $row["nomAuteur"]; ?></td>
-                                        <td><?php echo $row["categorie"]; ?></td>
-                                        <td><?php echo $row["description"]; ?></td>
-                                        <td><?php echo $row["dateS"]; ?></td>
-                                        <td><img id="output2" style="  height:70px  ;width:110px ;   "
-                                                 src="../livres/<?php echo $row["image"] ?>"/></td>
-                                        <td><?php echo $row["prix"]; ?></td>
-                                        <td><?php echo $row["stock"]; ?></td>
+                                        <th scope="row"><?php echo $j; ?> </th>
+
+                                        <td><?php echo $row["name"]; ?></td>
+
                                         <td>
-                                            <form action="modifier_livre.php" style="float:left;">
+                                            <form action="modifier_categorie.php" style="float:left;">
 
                                                 <button class="btn btn-sm btn-success" type="submit" name="modifier"
                                                         value="modifier"><i class="fa fa-pencil"> </i> Update
                                                 </button>
 
-                                                <input type="hidden" value="<?php echo $row['ID']; ?>" name="id">
+                                                <input type="hidden" value="<?php echo $row['id']; ?>" name="id">
 
                                             </form>
-                                            <form action="../../controller/supprimer_livre.php" style="float:right;">
+                                            <form action="../../controller/supprimer_categorie.php" style="float:right;">
                                                 <button class="btn btn-sm btn-danger" type="submit" id="supprimer"
                                                         name="supprimer" value="supprimer"><i class="fa fa-trash"></i>
                                                     Delete
                                                 </button>
-
-                                                <input type="hidden" id="id" value="<?php echo $row['ID']; ?>" name="id">
+                                                <input type="hidden" id="name" value="<?php echo $row['name']; ?>"
+                                                       name="name">
+                                                <input type="hidden" id="id" value="<?php echo $row['id']; ?>" name="id">
                                             </form>
                                         </td>
                                     </tr>
@@ -218,23 +218,24 @@ $connection=mysqli_connect('localhost','root','','web');
                                 <?php } ?>
                                 </table>
                             </div>
-                            <div>
-                                <ul class="pagination">
-                                    <?php
-                                    if ($count > 1) {
-                                        for ($i = 1; $i <= $count; $i++) {
-                                            if ($i == $page) {
-                                                echo "<li> <a  style=' color: white;  background: #33b35a ; width: 15px' href='livres.php?page={$i}'>{$i}</a> </li>  ";
-                                            } else {
-                                                echo "<li> <a href='livres.php?page={$i}'>{$i}</a> </li>  ";
-                                            }
 
+                        </div>
+                        <div>
+                            <ul class="pagination">
+                                <?php
+                                if ($count > 1) {
+                                    for ($i = 1; $i <= $count; $i++) {
+                                        if ($i == $page) {
+                                            echo "<li> <a style=' color: white;  background: #33b35a ; width: 15px' href='categories.php?page={$i}'>{$i}</a> </li>  ";
+                                        } else {
+                                            echo "<li> <a href='categories.php?page={$i}'>{$i}</a> </li>  ";
                                         }
-                                    }
-                                    ?>
 
-                                </ul>
-                            </div>
+                                    }
+                                }
+                                ?>
+
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -248,110 +249,37 @@ $connection=mysqli_connect('localhost','root','','web');
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">ajouter un livre</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">ajouter une categorie</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div>
 
-                        <form method="post" action="../../controller/ajouterlivre.php" enctype='multipart/form-data'>
+                        <form method="post" action="../../controller/ajoutercategorie.php">
 
 
                             <div class="col-12 col-md-9">
-                                <label>Reférence:</label>
-                                <input type="text" required name="reference" class="form-control" id="reference">
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <label>Titre:</label>
-                                <input type="text" required name="titre" class="form-control" id="titre">
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <label>Auteur:</label>
-                                <input type="text" required name="auteur" class="form-control" id="auteur">
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <label>Date de sortie:</label>
-                                <input type="date" id="date" name="date" class="form-control " required><br>
+                                <label>Categorie:</label>
+                                <input type="text" required name="name" class="form-control" id="name">
                             </div>
 
-                            <div class="col-12 col-md-9">
-                                <label>Categorie</label>
-                                <?php if ($categories->rowCount() > 0) { ?>
-                                    <select class="myselect" style="width:200px;" name="categorie" id="categorie"> <?php
-                                        foreach ($categories
-
-                                        as $row) { ?>
-                                        <option value="<?PHP echo $row['name']; ?>">  <?PHP echo $row['name'];
-                                            } ?></option>
-                                    </select>
-
-                                <?php } else { ?>  <h4 style="color:#ff004a">vous n'avez pas encore de
-                                    catégorie </h4>    <?php } ?>
-
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <label>DESCRIPTION:</label>
-                                <textarea type="text" name="description" required class="form-control" id="des"> </textarea>
-                            </div>
-
-
-                            <div class="col-12 col-md-9">
-                                <label>PRIX:</label>
-                                <input style="width: 200px" required type="number" name="prix" class="form-control" id="prix">
-                                <span id="error_price" class="text-danger"></span>
-                            </div>
-                            <div class="col-12 col-md-9">
-
-                                <label>Stock:</label>
-                                <input style="width: 200px" required type="number" name="stock" class="form-control" id="stock">
-                                <span id="error_stock" class="text-danger"></span>
-
-                            </div>
-                            <div class="col-12 col-md-9">
-                                <label for="images_input" class=" form-control-label">Images </label>
-                                <input type="file" required id="images_input" name="fileToUpload" onchange="readURL(this);"
-                                       class="form-control-file">
-                                <br>
-                                <img id="preview" src="#" alt=""/>
-
-
-                            </div>
 
                     </div>
                     <div class="modal-footer">
-                        <?php if ($categories->rowCount() <= 0) { ?>
-                            <input type="submit" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal2"
-                                   value="Envoyer" id="button-blue" name="button-blue">
-                        <?php } else { ?>
-                            <button type="submit" name='ajout' class="btn btn-primary">Ajouter</button>
-                        <?php } ?>
+
+                        <button type="submit" name='ajout' class="btn btn-primary">Ajouter</button>
+
                         <button type="reset" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                     </div>
                     </form>
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-
-                    <div class="modal-body">
-                        <h4 style="color: red">vous devez ajouter au moins une categorie
-                            <a href="categories.php">ajouter une categorie ..</a>
-                        </h4>
-                    </div>
-
-                </div>
-            </div>
-        </div>
 
 
 
-        
-
-      <footer class="main-footer">
+        <footer class="main-footer">
         <div class="container-fluid">
           <div class="row">
             <div class="col-sm-6">

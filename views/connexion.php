@@ -79,7 +79,8 @@ if (isset($_POST["id"]) &&
           <li><a class="nav-link scrollto" href="#services">Cours</a></li>
           <li><a class="nav-link scrollto " href="#portfolio">Actualités</a></li>
           <li><a class="nav-link scrollto" href="#team">Evènements</a></li>
-          <li><a class="nav-link scrollto" href="#team">Livres</a></li>
+            <li><a class="nav-link scrollto" href="Livres.php">Livres</a></li>
+
           <li><a class="nav-link scrollto" active href="#Connexion">Connexion</a></li>
 
         </ul>

@@ -1,24 +1,5 @@
 <?php
 
-include "../controller/livres.php";
-include "../controller/categories.php";
-$l= new livres();
-$c = new categories();
-if (isset($_GET['page'])) {
-    $page = $_GET['page'];
-} else {
-    $page = "";
-}
-if ($page == "" || $page == 1) {
-    $page_1 = 0;
-} else {
-    $page_1 = ($page * 6) - 6;
-}
-$result = $l->afficher($page_1);
-$top = $l->top5();
-$categories = $c->selectcategorie();
-
-$count = ceil(($l->count()) / 6);
 session_start();
 
 ?>
@@ -82,7 +63,19 @@ session_start();
           <li><a class="nav-link scrollto " href="#portfolio">Actualités</a></li>
           <li><a class="nav-link scrollto" href="#team">Evènements</a></li>
           <li><a class="nav-link scrollto" href="Livres.php">Livres</a></li>
-                <li><a class="nav-link scrollto" href="deconnexion.php">déonnexion</a></li>
+                <?php
+                if (isset($_SESSION['e']))
+                {
+                    ?>
+                    <li><a class="nav-link scrollto" href="deconnexion.php">déonnexion</a></li>
+                    <?php
+                }
+                else {
+                    ?>
+                    <li><a class="nav-link scrollto" active href="connexion.php">Connexion</a></li>
+                    <?php
+                }
+                ?>
 
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
@@ -93,6 +86,11 @@ session_start();
     </div>
 </header><!-- End Header -->
 
+<?php include "../controller/livres.php";
+$l = new livres();
+$result = $l->afficherlivre($_GET['id']);
+while ($row = $result->fetch()){
+?>
 <!-- ======= Hero Section ======= -->
 <section id="hero" class="d-flex align-items-center justify-content-center">
     <div class="container" data-aos="fade-up">
@@ -128,259 +126,137 @@ session_start();
 
     <!-- ======= Features Section ======= -->
 
-    <section class="inner-page">
+    <section id="portfolio-details" class="portfolio-details">
         <div class="container">
-            <!-- row -->
-            <div class="row">
-                <!-- ASIDE -->
-                <div id="aside" class="col-md-3">
-                    <!-- aside widget -->
-                    <div class="aside">
-                        <h3 class="aside-title">Filter par Categorie</h3>
-                        <ul class="list-links">
-                            <?php foreach ($categories as $row)  { ?>
-                            <li>
-                                <a href="Livres_par_categorie.php?categorie=<?php echo $row["name"]; ?>"><?php echo $row["name"];
-                                    } ?></a></li>
+
+            <div class="row gy-4">
+
+                <div class="col-lg-8">
+                    <div class="portfolio-details-slider swiper-container">
+                        <div class="swiper-wrapper align-items-center">
+
+                            <div class="swiper-slide">
+                                <img src="livres/<?php echo $row["image"]; ?>" style="width: 400px ; height: 450px"
+                                     alt="">
+                            </div>
 
 
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="portfolio-info">
+                        <h3>Details de Livre </h3>
+                        <ul>
+                            <li><strong>Titre </strong>: <?php echo $row["titre"]; ?></li>
+                            <li><strong>Categorie </strong>: <?php echo $row["categorie"]; ?></li>
+                            <li><strong>Auteur</strong>: <?php echo $row["nomAuteur"]; ?></li>
+                            <li><strong>Date de sortie</strong>:<?php echo $row["dateS"]; ?></li>
+                            <li><strong>Prix </strong>: <?php echo $row["prix"]; ?> DT</li>
+                            <li><strong>Disponiblité </strong>: <?php if ($row['stock'] > 0) { ?>
+                                    en stock
+                                <?php } else { ?> En rupture de stock     <?php } ?>
+                            </li>
                         </ul>
-                    </div>
-                    <!-- /aside widget -->
-                    <!-- aside widget -->
-                    <div class="aside">
-                        <h3 class="aside-title">Livres les mieux notés</h3>
-                        <!-- widget product -->
-                        <?php foreach ($top as $row) { ?>
-                            <div class="product product-widget">
-                                <div class="product-thumb">
-                                    <img src="livres/<?php echo $row["image"]; ?>" alt="">
-                                </div>
-                                <div class="product-body">
-                                    <h2 class="product-name"><a
-                                                href="Livre_details.php?id=<?php echo $row["ID"]; ?>"><?php echo $row["titre"]; ?></a>
-                                    </h2>
-                                    <h3 class="product-price"><?php echo $row["prix"]; ?> DT</h3>
-                                    <div class="product-rating">
-                                        <?php
+                        <br>
+                        <div class="product-rating">
+                            <strong>notez ce livre :</strong>
+                            <?php
+                            if (isset($_SESSION['e'])) {
+                                $idc = $_SESSION['e'];
 
-                                        $idp = $row["ID"];
-                                        $sql = " SELECT * from livres where (ID='$idp')";
-                                        $db = config::getConnexion();
-                                        $listnote = $db->query($sql);
-                                        if ($listnote->rowCount()) {
-                                        foreach ($listnote
+                                //afficher note
+                            } else {
+                                $idc = gethostbyaddr($_SERVER['REMOTE_ADDR']);
+                            }
+                            $idl = $_GET['id'];
+                            $sql = " SELECT * from note where (id_client='$idc' and  id_livre=$idl)";
+                            $db = config::getConnexion();
 
-                                        as $row1){
-                                        for ($i = 0;
-                                        $i < 5;
-                                        $i++){
-                                        if ($row1['note'] > $i)
-                                        {
-                                        ?>
-                                        <td width="80%">
-                                            <i class="fa fa-star"></i>
-                                            <?php }else{ ?>
-                                        <td>
-                                            <i class="fa fa-star-o empty"></i>
-                                            <?php }
-                                            }
-                                            }
-                                            ?>
-                                            <?php
-                                            }
-                                            else{
-                                            for ($i = 0;
-                                            $i < 5;
-                                            $i++){
-                                            ?>
-                                        <td>
-                                            <i class="fa fa-star-o empty"> </i>
-                                            <?php
-                                            }
-                                            } ?>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php } ?>
-                    </div>
-
-                </div>
-                <div id="main" class="col-md-9">
-                    <!-- store top filter -->
-                    <div class="store-filter clearfix">
-                        <div class="pull-left">
-                            <div class="row-filter">
-
-                            </div>
-
-                        </div>
-                        <div class="pull-right">
-
-                            <ul class="store-pages">
-
-                                <?php
-                                if ($count > 1) { ?>
+                            $listnote = $db->query($sql);
 
 
-                                    <li><span class="text-uppercase">Page:</span></li>
-                                    <?php
-                                    for ($i = 1; $i <= $count; $i++) {
-                                        if ($i == $page) {
-                                            echo "<li> <a style='color: orangered' href='livres.php?page={$i}'>{$i}</a> </li>  ";
-                                        } else {
-                                            echo "<li> <a href='livres.php?page={$i}'>{$i}</a> </li>  ";
-                                        }
+                            if ($listnote->rowCount()) {
 
-                                    }
+                            foreach ($listnote
+
+                            as $row1){
+
+                            for ($i = 0;
+                            $i < 5;
+                            $i++){
+                            if ($row1['note'] > $i)
+                            {
+                            ?>
+                            <td width="80%"><a
+                                        href="<?php echo "../controller/ajouter_note.php?id=" . $idc . "&note=" . ($i + 1) . "&livre=" . $idl . "" ?> "
+                                        class="social-info">
+                                    <i class="fa fa-star"></i>
+                                    <?php }else{ ?>
+                            <td>
+                                <a href="<?php echo "../controller/ajouter_note.php?id=" . $idc . "&note=" . ($i + 1) . "&livre=" . $idl . "" ?> "
+                                   class="social-info">
+                                    <i class="fa fa-star-o empty"></i> </a>
+                                <?php }
+                                }
                                 }
                                 ?>
-
-
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- /store top filter -->
-
-                    <!-- STORE -->
-                    <div id="store">
-                        <!-- row -->
-
-                        <div class="row">
-                            <!-- Product Single -->
-                            <?php foreach ($result as $row) { ?>
-                                <div class="col-md-4 col-sm-6 col-xs-6">
-
-                                    <div class="product product-single">
-                                        <div class="product-thumb">
-
-                                            <button onclick="location.href='Livre_details?id=<?php echo $row["ID"]; ?>'"
-                                                    class="main-btn quick-view"><i class="fa fa-search-plus"></i> Voir details
-                                            </button>
-                                            <img style="width: 250px; height: 200px"
-                                                 src="livres/<?php echo $row["image"]; ?>" alt="">
-                                        </div>
-                                        <div class="product-body">
-                                            <h3 class="product-price"><?php echo $row["prix"]; ?> DT</h3>
-                                            <div class="product-rating">
-                                                <?php
-
-                                                $idp = $row["ID"];
-                                                $sql = " SELECT * from livres where (ID='$idp')";
-                                                $db = config::getConnexion();
-
-                                                $listnote = $db->query($sql);
-
-
-                                                if ($listnote->rowCount()) {
-
-                                                foreach ($listnote
-
-                                                as $row1){
-
-                                                for ($i = 0;
-                                                $i < 5;
-                                                $i++){
-                                                if ($row1['note'] > $i)
-                                                {
-                                                ?>
-                                                <td width="80%">
-                                                    <i class="fa fa-star"></i>
-
-
-                                                    <?php }else{ ?>
-
-
-                                                <td>
-                                                    <i class="fa fa-star-o empty"></i>
-                                                    <?php }
-
-
-                                                    }
-                                                    }
-                                                    ?>
-                                                    <?php
-                                                    }
-
-                                                    else{
-
-                                                    for ($i = 0;
-                                                    $i < 5;
-                                                    $i++){
-                                                    ?>
-                                                <td>
-                                                    <i class="fa fa-star-o empty"> </i>
-
-
-                                                    <?php
-
-                                                    }
-                                                    } ?>
-                                            </div>
-                                            <h2 class="product-name"><a
-                                                        href="Livres_details?id=<?php echo $row["ID"]; ?>"><?php echo $row["titre"]; ?></a>
-                                            </h2>
-                                            <div class="product-btns">
-                                                <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-                                                <button class="main-btn icon-btn"><i class="fa fa-exchange"></i>
-                                                </button>
-                                                <button class="primary-btn add-to-cart"><i
-                                                            class="fa fa-shopping-cart"></i> Acheter
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            <?php } ?>
-                            <!-- /Product Single -->
-
+                                <?php
+                                }
+                                else{
+                                for ($i = 0;
+                                $i < 5;
+                                $i++){
+                                ?>
+                            <td>
+                                <a href="<?php echo "../controller/ajouter_note.php?id=" . $idc . "&note=" . ($i + 1) . "&livre=" . $idl . "" ?> "
+                                   class="social-info">
+                                    <i class="fa fa-star-o empty"> </i> </a>
+                                <?php
+                                }
+                                } ?>
 
                         </div>
-                        <!-- /row -->
-                    </div>
-                    <!-- /STORE -->
-
-                    <!-- store bottom filter -->
-                    <div class="store-filter clearfix">
-                        <div class="pull-left">
-                            <div class="row-filter">
+                        <br>
+                        <div class="product-btns">
+                            <div class="qty-input">
+                                <span class="text-uppercase">Nombre d'exemplaire: </span>
+                                <input class="input" type="number" style="width: 90px">
 
                             </div>
-
-                        </div>
-                        <div class="pull-right">
-
-                            <ul class="store-pages">
-
-                                <?php
-                                if ($count > 1) { ?>
-                                    <li><span class="text-uppercase">Page:</span></li>
-                                    <?php
-                                    for ($i = 1; $i <= $count; $i++) {
-                                        if ($i == $page) {
-                                            echo "<li > <a style='color: orangered'  href='livres.php?page={$i}'>{$i}</a> </li>  ";
-                                        } else {
-                                            echo "<li> <a href='livres.php?page={$i}'>{$i}</a> </li>  ";
-                                        }
-
-                                    }
-                                }
-                                ?>
-
-                            </ul>
+                            <br>
+                            <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> ajouter au
+                                panier
+                            </button>
+                            <div class="pull-right">
+                                <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
+                                <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
+                                <button class="main-btn icon-btn"><i class="fa fa-share-alt"></i></button>
+                            </div>
                         </div>
                     </div>
-                    <!-- /store bottom filter -->
+
+
                 </div>
-                <!-- /MAIN -->
+
+                <div class="portfolio-description">
+
+                    <h2>Description de livre </h2>
+                    <span> Reference :   <?php echo $row["ID"]; ?> </span>
+                    <p>
+                        <?php echo $row["description"];
+                        } ?>
+                    </p>
+
+                </div>
+                <div>
+
+                </div>
+
             </div>
-            <!-- /row -->
-        </div>
-    </section>
-    <!--end connexion section-->
-
-
+    </section><!-- End Portfolio Details Section -->
 </main><!-- End #main -->
 
 <!-- ======= Footer ======= -->

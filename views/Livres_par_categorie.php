@@ -1,8 +1,8 @@
 <?php
 
-include "../controller/livres.php";
 include "../controller/categories.php";
-$l= new livres();
+include "../controller/livres.php";
+$l = new livres();
 $c = new categories();
 if (isset($_GET['page'])) {
     $page = $_GET['page'];
@@ -14,12 +14,10 @@ if ($page == "" || $page == 1) {
 } else {
     $page_1 = ($page * 6) - 6;
 }
-$result = $l->afficher($page_1);
+$result = $l->afficherlivreparcategorie($_GET['categorie'], $page_1);
 $top = $l->top5();
 $categories = $c->selectcategorie();
-
-$count = ceil(($l->count()) / 6);
-session_start();
+$count = ceil(($l->countbycategorie($_GET['categorie'])) / 6);
 
 ?>
 <!DOCTYPE html>
@@ -82,7 +80,19 @@ session_start();
           <li><a class="nav-link scrollto " href="#portfolio">Actualités</a></li>
           <li><a class="nav-link scrollto" href="#team">Evènements</a></li>
           <li><a class="nav-link scrollto" href="Livres.php">Livres</a></li>
-                <li><a class="nav-link scrollto" href="deconnexion.php">déonnexion</a></li>
+                <?php
+                if (isset($_SESSION['e']))
+                {
+                    ?>
+                    <li><a class="nav-link scrollto" href="deconnexion.php">déonnexion</a></li>
+                    <?php
+                }
+                else {
+                    ?>
+                    <li><a class="nav-link scrollto" active href="connexion.php">Connexion</a></li>
+                    <?php
+                }
+                ?>
 
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
@@ -106,35 +116,12 @@ session_start();
 
       <div class="row gy-4 mt-5 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
         <div class="col-xl-2 col-md-4">
-          <div class="icon-box">
+          <div class="icon-box2">
             <i class="bx bx-library"></i>
-            <h3><a href="">Ouvrages</a></h3>
+            <h3><a href="Livres.php">Livres Et Ouvrages</a></h3>
           </div>
         </div>
-        <div class="col-xl-2 col-md-4">
-          <div class="icon-box">
-            <i class="bx bx-brain"></i>
-            <h3><a href="">Cours</a></h3>
-          </div>
-        </div>
-        <div class="col-xl-2 col-md-4">
-          <div class="icon-box">
-            <i class="bx bx-message-rounded-detail"></i>
-            <h3><a href="">Actualités</a></h3>
-          </div>
-        </div>
-        <div class="col-xl-2 col-md-4">
-          <div class="icon-box">
-            <i class="ri-calendar-todo-line"></i>
-            <h3><a href="">Evènements</a></h3>
-          </div>
-        </div>
-        <div class="col-xl-2 col-md-4">
-          <div class="icon-box">
-            <i class="bx bx-book"></i>
-            <h3><a href="">Livres</a></h3>
-          </div>
-        </div>
+
         
       </div>
 
@@ -153,15 +140,18 @@ session_start();
 
     <section class="inner-page">
         <div class="container">
+
             <!-- row -->
             <div class="row">
                 <!-- ASIDE -->
                 <div id="aside" class="col-md-3">
                     <!-- aside widget -->
                     <div class="aside">
-                        <h3 class="aside-title">Filter by Categorie</h3>
+                        <h3 class="aside-title">Filter pr Categorie</h3>
                         <ul class="list-links">
-                            <?php foreach ($categories as $row)  { ?>
+                            <?php foreach ($categories
+
+                            as $row)  { ?>
                             <li>
                                 <a href="Livres_par_categorie.php?categorie=<?php echo $row["name"]; ?>"><?php echo $row["name"];
                                     } ?></a></li>
@@ -173,7 +163,7 @@ session_start();
                     <!-- aside widget -->
                     <div class="aside">
                         <h3 class="aside-title">Livres les mieux notés</h3>
-                        <!-- widget product -->
+
                         <?php foreach ($top as $row) { ?>
                             <div class="product product-widget">
                                 <div class="product-thumb">
@@ -186,9 +176,8 @@ session_start();
                                     <h3 class="product-price"><?php echo $row["prix"]; ?> DT</h3>
                                     <div class="product-rating">
                                         <?php
-
-                                        $idp = $row["ID"];
-                                        $sql = " SELECT * from livres where (ID='$idp')";
+                                        $idl= $row["ID"];
+                                        $sql = " SELECT * from livres where (ID='$idl')";
                                         $db = config::getConnexion();
                                         $listnote = $db->query($sql);
                                         if ($listnote->rowCount()) {
@@ -220,12 +209,15 @@ session_start();
                                         <td>
                                             <i class="fa fa-star-o empty"> </i>
                                             <?php
+
                                             }
                                             } ?>
                                     </div>
                                 </div>
                             </div>
                         <?php } ?>
+
+
                     </div>
 
                 </div>
@@ -244,15 +236,14 @@ session_start();
 
                                 <?php
                                 if ($count > 1) { ?>
-
-
                                     <li><span class="text-uppercase">Page:</span></li>
                                     <?php
+                                    $c = $_GET['categorie'];
                                     for ($i = 1; $i <= $count; $i++) {
                                         if ($i == $page) {
-                                            echo "<li> <a style='color: orangered' href='livres.php?page={$i}'>{$i}</a> </li>  ";
+                                            echo "<li> <a style='color: orangered' href='livres_par_categorie.php?categorie={$c}&page={$i}'>{$i}</a> </li>  ";
                                         } else {
-                                            echo "<li> <a href='livres.php?page={$i}'>{$i}</a> </li>  ";
+                                            echo "<li> <a href='livres_par_categorie.php?categorie={$c}&page={$i}'>{$i}</a> </li>  ";
                                         }
 
                                     }
@@ -270,15 +261,19 @@ session_start();
                         <!-- row -->
 
                         <div class="row">
+
                             <!-- Product Single -->
-                            <?php foreach ($result as $row) { ?>
+                            <?php
+
+                            foreach ($result as $row) { ?>
                                 <div class="col-md-4 col-sm-6 col-xs-6">
 
                                     <div class="product product-single">
                                         <div class="product-thumb">
 
-                                            <button onclick="location.href='Livre_details?id=<?php echo $row["ID"]; ?>'"
+                                            <button onclick="location.href='livre_details?id=<?php echo $row["ID"]; ?>'"
                                                     class="main-btn quick-view"><i class="fa fa-search-plus"></i> Voir details
+
                                             </button>
                                             <img style="width: 250px; height: 200px"
                                                  src="livres/<?php echo $row["image"]; ?>" alt="">
@@ -341,7 +336,7 @@ session_start();
                                                     } ?>
                                             </div>
                                             <h2 class="product-name"><a
-                                                        href="Livres_details?id=<?php echo $row["ID"]; ?>"><?php echo $row["titre"]; ?></a>
+                                                        href="livre_details?id=<?php echo $row["ID"]; ?>"><?php echo $row["titre"]; ?></a>
                                             </h2>
                                             <div class="product-btns">
                                                 <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
@@ -356,7 +351,17 @@ session_start();
 
                                 </div>
                             <?php } ?>
-                            <!-- /Product Single -->
+
+                            <?php
+                            $count2 = ceil(($l->countbycategorie($_GET['categorie'])));
+                            if ($count2 == 0) {
+                                ?>
+                                <H2 style="color: red">DÉSOLÉ NOUS N'AVONS AUCUN LIVRE DANS CETTE CATÉGORIE</H2>
+                            <?php } else { ?>
+
+                                <H1 style="color: red"></H1>
+                            <?php } ?>
+
 
 
                         </div>
@@ -380,11 +385,12 @@ session_start();
                                 if ($count > 1) { ?>
                                     <li><span class="text-uppercase">Page:</span></li>
                                     <?php
+                                    $c = $_GET['categorie'];
                                     for ($i = 1; $i <= $count; $i++) {
                                         if ($i == $page) {
-                                            echo "<li > <a style='color: orangered'  href='livres.php?page={$i}'>{$i}</a> </li>  ";
+                                            echo "<li> <a style='color: orangered' href='Livres_par_categorie.php?categorie={$c}&page={$i}'>{$i}</a> </li>  ";
                                         } else {
-                                            echo "<li> <a href='livres.php?page={$i}'>{$i}</a> </li>  ";
+                                            echo "<li> <a href='Livres_par_categorie.php?categorie={$c}&page={$i}'>{$i}</a> </li>  ";
                                         }
 
                                     }

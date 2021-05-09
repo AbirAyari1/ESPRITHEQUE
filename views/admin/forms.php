@@ -243,7 +243,7 @@ if(isset($_POST['ASCU']))
           <ul id="side-main-menu" class="side-menu list-unstyled">                  
             <li class="active"><a href="forms.html"> <i class="icon-user"></i>Etudiants</a></li>
             <li><a href="index.html"> <i class="icon-bill"></i>Ouvrages</a></li>
-            <li><a href="charts.html"> <i class="icon-check"></i>Livres</a></li>
+            <li><a href="livres.php"> <i class="icon-check"></i>Livres</a></li>
             <li><a href="tables.html"> <i class="icon-clock"></i>Evènements</a></li>
             <li><a href="login.html"> <i class="icon-pencil-case"></i>Cours </a></li>
             <li> <a href="#"> <i class="icon-paper-airplane"></i>Actualités</a></li>
@@ -371,7 +371,7 @@ if(isset($_POST['ASCU']))
                            <form action="avertissement.php" method="POST">
                                <input type="hidden" name="avertissement" value="<?php echo $user['Id']; ?>" >
                               
-                               <button type="submit" class="btn btn-danger "  >  <i class="fa fa-exclamation-triangle" > </i></button>
+                               <button type="submit" class="btn btn-dark "  style="width:37px; height:37px;">  <i class="fa fa-exclamation-triangle" > </i></button>
                              </form>
                              <form action="supression.php" method="POST">
                                <input type="hidden" name="id" value="<?php echo $user['Id']; ?>" >

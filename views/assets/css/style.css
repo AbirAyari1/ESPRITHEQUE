@@ -432,6 +432,41 @@ h1, h2, h3, h4, h5, h6 {
   margin: 10px 0 0 0;
   font-size: 24px;
 }
+#hero .icon-box2 {
+
+  height: 100%;
+  text-align: center;
+}
+
+
+#hero .icon-box2 i {
+  font-size: 32px;
+  line-height: 1;
+  color: #B22222;
+}
+
+#hero .icon-box2 h3 {
+  font-weight: 700;
+  margin: 10px 0 0 0;
+  padding: 0;
+  line-height: 1;
+  font-size: 20px;
+  line-height: 26px;
+}
+
+#hero .icon-box2 h3 a {
+  color: #fff;
+  transition: ease-in-out 0.3s;
+}
+
+#hero .icon-box2 h3 a:hover {
+  color: #B22222;
+}
+
+#hero .icon-box2:hover {
+  border-color: #B22222;
+}
+
 
 #hero .icon-box {
   padding: 30px 20px;
