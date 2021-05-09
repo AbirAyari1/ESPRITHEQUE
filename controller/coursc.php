@@ -1,6 +1,6 @@
 <?php
-include ("../config.php");
-include ("../entities/cours.php");
+include_once "config2.php" ; 
+
 class coursC
 {
 	function ajoutcours($cours)
@@ -13,7 +13,7 @@ class coursC
         	$matiere=$cours->getmatiere();
             $titre=$cours->gettitre(); 
             $annee=$cours->getannee();
-            $num=$cours->getNum();
+            $req = $db->prepare($sql);
             $req->bindValue(':id', $id);
             $req->bindValue(':matiere', $matiere);
             $req->bindValue(':titre', $titre);
@@ -21,7 +21,7 @@ class coursC
            
             $req->execute();
         } catch (Exception $e) {
-            echo 'erreur: ' . $e->getMessannee();
+            echo 'erreur: ' . $e->getMessage();
         }
 	}
     function afficher_return()
