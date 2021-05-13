@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root"; // default username for localhost is root
 $password = ""; // default password for localhost is empty
-$dbname ="projet"; // database name
+$dbname ="asma"; // database name
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

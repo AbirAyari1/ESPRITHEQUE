@@ -4,7 +4,50 @@ include "../../config.php";
 include_once '../../model/cours.php';
 include_once '../../controller/coursc.php';
 
+$link = "";
+$link_status = "display: none;";
+
+if (isset($_POST['upload'])) { // If isset upload button or not
+  // Declaring Variables
+  $location = "uploads/";
+  $file_new_name = date("dmy") . time() . $_FILES["file"]["name"]; // New and unique name of uploaded file
+  $file_name = $_FILES["file"]["name"]; // Get uploaded file name
+  $file_temp = $_FILES["file"]["tmp_name"]; // Get uploaded file temp
+  $file_size = $_FILES["file"]["size"]; // Get uploaded file size
+
+  /*
+  How we can get mb from bytes
+  (mb*1024)*1024
+
+  In my case i'm 10 mb limit
+  (10*1024)*1024
+  */
+
+  if ($file_size > 10485760) { // Check file size 10mb or not
+    echo "<script>alert('Woops! File is too big. Maximum file size allowed for upload 10 MB.')</script>";
+  } else {
+    $sql = "INSERT INTO uploaded_files (name, new_name)
+        VALUES ('$file_name', '$file_new_name')";
+    $result = mysqli_query($conn, $sql);
+    if ($result) {
+      move_uploaded_file($file_temp, $location . $file_new_name);
+      echo "<script>alert('Wow! File uploaded successfully.')</script>";
+      // Select id from database
+      $sql = "SELECT id FROM uploaded_files ORDER BY id DESC";
+      $result = mysqli_query($conn, $sql);
+      if ($row = mysqli_fetch_assoc($result)) {
+        $link = $base_url . "download.php?id=" . $row['id'];
+        $link_status = "display: block;";
+      }
+    } else {
+      echo "<script>alert('Woops! Something wong went.')</script>";
+    }
+  }
+}
+
 ?>
+
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -14,6 +57,10 @@ include_once '../../controller/coursc.php';
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome CSS-->
@@ -30,6 +77,15 @@ include_once '../../controller/coursc.php';
     <link rel="stylesheet" href="css/style.red.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/welcome.css">
+    <link  rel="stylesheet" href="css/font.css">
+    <link rel="stylesheet"  href="css/style1.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/autofill/2.3.6/css/autoFill.bootstrap4.min.css">
+    <script src="js/jquery.js" type="text/javascript"></script>
+    <script src="js/bootstrap.min.js"  type="text/javascript"></script>
+    <script src="../../verifadmin.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
     <!-- Favicon-->
     <link rel="shortcut icon" href="img/favicon.ico">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
@@ -123,7 +179,7 @@ include_once '../../controller/coursc.php';
                   
                 </div>
               </div>
-        <form name="f1" method="POST" onsubmit="return verif()" action="ajoutcours.php" >
+        <form name="f1" method="POST" onsubmit="return verif()"action="ajoutcours.php" >
                     <section id="main-container">
                         <div class="container">
                         
@@ -135,37 +191,47 @@ include_once '../../controller/coursc.php';
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Identifiant</label>
-                                                    <input class="form-control" name="id" id="id" placeholder="Votre Identifiant" type="text">
+                                                    <input class="form-control" name="id" id="id" placeholder="Votre Identifiant"required pattern="[0-9\.]{8}" type="text">
                                                 </div>
                                             </div>
+                                          
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Matiere</label>
-                                                    <input class="form-control" name="matiere" id="matiere" placeholder="Votre matiere" type="text">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Titre</label>
-                                                    <input class="form-control" name="titre" id="titre" placeholder="Votre titre" type="text">
+                                                    <input class="form-control" name="matiere" id="matiere"required pattern="[a-zA-Z-\.]{3,20}" placeholder="Votre matiere" type="text">
                                                 </div>
                                             </div>
 
-                                            
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Titre</label>
+                                                    <input class="form-control" name="titre" id="titre" required pattern="[a-zA-Z-\.]{3,20}" placeholder="Votre titre" type="text">
+                                                </div>
+                                            </div>
                                         </div>
                                        
                                         <div class="form-group">
-                                            <label for="annee">Annee</label>
-                                           
-                                            <input class="form-control" name="annee" id="annee" placeholder="Votre annee" rows="10" type="texts"  
-                                            >
+                                            <label>Classe</label>
+                      <select class="form-control" name="annee" id="annee"  >
+                  <option value="1ère Année">1ère Année</option>
+                  <option value="2ème Année">2ème Année</option>
+                  <option value="3ème Année">3ème Année</option>
+                  <option value="4ème Année">4ème Année </option>
+                  <option value="5ème Année">5ème Année</option>
+                  
+
+                 </select>
                                         </textarea>
                                            
                                         </div>
                                         
                                         <div class="text-right"><br>
-                                            <button class="btn btn-primary solid blank" type="submit" onclick="test1()" >Ajouter</button>
+                              
+                                            <button class="btn btn-primary solid blank" type="submit" name="submit" onclick="test1()" >Ajouter</button>
+
+
                                         </div>
+
                                     </form>
                                 </div>
                                 <div class="col-md-1"></div>
@@ -191,6 +257,29 @@ include_once '../../controller/coursc.php';
           
         </div>
       </section>
+                <body>
+              <div class="file__upload">
+                <div class="header">
+                  <p><i class="fa fa-cloud-upload fa-2x"></i><span><span>up</span>load</span></p>     
+                </div>
+                <form action="" method="POST" enctype="multipart/form-data" class="body">
+                  <!-- Sharable Link Code -->
+                  <input type="checkbox" id="link_checkbox">
+                  <input type="text" value="<?php echo $link; ?>" id="link" readonly>
+                  <label for="link_checkbox" style="<?php echo $link_status; ?>">Get Sharable Link</label>
+
+                  <input type="file" name="file" id="upload" required>
+                  <label for="upload">
+                    <i class="fa fa-file-text-o fa-3x"></i>
+                    <p>
+                      <strong>Drag and drop</strong> files here<br>
+                      or <span>browse</span> to begin the upload
+                    </p>
+                  </label>
+                  <button name="upload" class="btn">Upload</button>
+                </form>
+              </div>
+            </body>
       <header>
           <h1 class="text-center">Tables </h1>
         </header>
@@ -201,9 +290,9 @@ include_once '../../controller/coursc.php';
               <div class="card-header">
                 <h4>Liste des cours</h4> <br>
                   <form method="POST">
-                  <input type="text" name="valueToSearch" placeholder="valeur à chercher" style="width:150px; height:39px;">
+                  <input type="text" name="search" placeholder="valeur à chercher" value="<?php echo @$_GET['search']; ?>" style="width:150px  ; height:39px;">
                  
-                 <button type="submit"  class="btn btn-dark" name="search"  >  <i class="fa fa-search" > </i></button>
+                 <button class="btn btn-dark" name="search"  > search <i class="fa fa-search" > </i></button>
                  <button type="submit" class="btn btn-danger pull-right " name="ASCU" value="ASCU">  <i class="fa fa-sort-up"> </i></button>
                   <button type="submit" class="btn btn-danger pull-right" style="margin-right:10px;"  name="DSCU" value="DSCU" >  <i class="fa fa-sort-down"> </i></button><br><br>
                 
@@ -223,7 +312,7 @@ include_once '../../controller/coursc.php';
                    
                <div class="card-body">
                   <div class="table-responsive">
-                    <table class="table table-striped table-sm">
+                    <table id="datatableid" class="table table-striped table-sm">
                       <thead  class="thead-dark">
                         <tr>
                           
@@ -246,6 +335,16 @@ include_once '../../controller/coursc.php';
 
 
 								?>
+                <?php 
+
+     if(isset($_GET['search'])){
+        $searchKey = $_GET['search'];
+        $sql = "SELECT * FROM cours WHERE matiere LIKE '%$searchKey%'";
+     }else
+     $sql = "SELECT * FROM cours";
+     $result = $conn->query($sql);
+   ?>
+
 								<?php
 						if ($result->num_rows > 0) {
 						//output data of each row
@@ -260,10 +359,9 @@ include_once '../../controller/coursc.php';
                       <td><?php echo $row['matiere']; ?></td>
                       <td><?php echo $row['titre']; ?></td>
                       <td><?php echo $row['annee']; ?></td>
-                      <td><a class="btn btn-info" href="update.php?id=<?php echo $row['id']; ?>">Edit</a>&nbsp;<a class="btn btn-danger" href="delete.php?id=<?php 	 ; echo $row['id']; ?>">Delete <a class="btn btn-danger" href="search.php?id=<?php 	 ; echo $row['id']; ?>">rechercher</a></td>
-                      
-				
+                      <td><a class="btn btn-info" href="update.php?id=<?php echo $row['id']; ?>">Edit</a>&nbsp;<a class="btn btn-danger" href="delete.php?id=<?php 	 ; echo $row['id']; ?>">Delete</a></td>
                       </tr>
+
                       <?php	
                        
                       	}
@@ -272,13 +370,17 @@ include_once '../../controller/coursc.php';
                                  
                     </tbody>
                   </table>
+                  
                 </div>
               </div>
             </div>
+            <td><a class="btn btn-info" href="ajoutquiz.php">ADD QUIZ</a></td>
           </div>
         </div>
       </div>
     </section>
+  
+    
       
     <!-- JavaScript files-->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -288,6 +390,13 @@ include_once '../../controller/coursc.php';
     <script src="vendor/chart.js/Chart.min.js"></script>
     <script src="vendor/jquery-validation/jquery.validate.min.js"></script>
     <script src="vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+      <script src="https://cdn.datatables.net/autofill/2.3.6/js/dataTables.autoFill.min.js"></script>
+                <script src="https://cdn.datatables.net/autofill/2.3.6/js/autoFill.bootstrap4.min.js"></script>
+                <script>
+                  $(document).ready(function() {
+    $('#datatableid').DataTable();
+} );
+                </script>
     <!-- Main File-->
     <script src="js/front.js"></script>
   </body>

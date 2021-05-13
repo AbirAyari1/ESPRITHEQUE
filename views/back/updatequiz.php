@@ -11,7 +11,7 @@
       $r1 = mysqli_query($conn,"DELETE FROM rank WHERE email='$demail' ") or die('Error');
       $r2 = mysqli_query($conn,"DELETE FROM history WHERE email='$demail' ") or die('Error');
       $result = mysqli_query($conn,"DELETE FROM user WHERE email='$demail' ") or die('Error');
-      header("location:dashboard.php?q=1");
+      header("location:ajoutquiz.php?q=1");
     }
   }
 
@@ -30,7 +30,7 @@
       $r3 = mysqli_query($conn,"DELETE FROM questions WHERE eid='$eid' ") or die('Error');
       $r4 = mysqli_query($conn,"DELETE FROM quiz WHERE eid='$eid' ") or die('Error');
       $r4 = mysqli_query($conn,"DELETE FROM history WHERE eid='$eid' ") or die('Error');
-      header("location:dashboard.php?q=5");
+      header("location:ajoutquiz.php?q=5");
     }
   }
 
@@ -45,8 +45,10 @@
       $wrong = $_POST['wrong'];
       $id=uniqid();
       $q3=mysqli_query($conn,"INSERT INTO quiz VALUES  ('$id','$name' , '$sahi' , '$wrong','$total', NOW())");
-      header("location:dashboard.php?q=4&step=2&eid=$id&n=$total");
-    }
+      header("location:ajoutquiz.php?q=4&step=2&eid=$id&n=$total");
+    }else {
+        echo "something wrong";
+      }
   }
 
   if(isset($_SESSION['key']))
@@ -84,7 +86,7 @@
         }
         $qans=mysqli_query($conn,"INSERT INTO answer VALUES  ('$qid','$ansid')");
       }
-      header("location:dashboard.php?q=0");
+      header("location:ajoutquiz.php?q=0");
     }
   }
 
@@ -143,7 +145,7 @@
     if($sn != $total)
     {
       $sn++;
-      header("location:quiz.php?q=quiz&step=2&eid=$eid&n=$sn&t=$total")or die('Error152');
+      header("location:ajoutquiz.php?q=quiz&step=2&eid=$eid&n=$sn&t=$total")or die('Error152');
     }
     else if( $_SESSION['key']!='suryapinky')
     {
@@ -167,11 +169,11 @@
         $sun=$s+$sun;
         $q=mysqli_query($conn,"UPDATE `rank` SET `score`=$sun ,time=NOW() WHERE email= '$email'")or die('Error174');
       }
-      header("location:quiz.php?q=result&eid=$eid");
+      header("location:ajoutquiz.php?q=result&eid=$eid");
     }
     else
     {
-      header("location:quiz.php?q=result&eid=$eid");
+      header("location:ajoutquiz.php?q=result&eid=$eid");
     }
   }
 
@@ -193,7 +195,7 @@
     }
     $sun=$sun-$s;
     $q=mysqli_query($conn,"UPDATE `rank` SET `score`=$sun ,time=NOW() WHERE email= '$email'")or die('Error174');
-    header("location:quiz.php?q=quiz&step=2&eid=$eid&n=1&t=$t");
+    header("location:ajoutquiz.php?q=quiz&step=2&eid=$eid&n=1&t=$t");
   }
 ?>
 

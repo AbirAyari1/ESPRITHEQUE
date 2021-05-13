@@ -1,7 +1,7 @@
 * {box-sizing: border-box;}
 
 body { 
-  background-color: #fffdfd;
+  background-color: #0b9164;
   margin: 0;
   font-family: Noto Sans;
 }
@@ -9,7 +9,7 @@ body {
 .header {
   text-align: center;
   overflow: hidden;
-  background-color: #ffffff;
+  background-color: #0b9164;
   padding: 20px 10px;
   text-decoration: none;
 }

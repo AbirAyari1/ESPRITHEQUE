@@ -1,5 +1,5 @@
 <?php 
-include "../config1.php";
+include "../../config.php";
 
 // if the form's update button is clicked, we need to process the form
 	if (isset($_POST['update'])) {

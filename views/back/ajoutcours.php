@@ -19,8 +19,6 @@ if(isset($_POST['id']) and isset($_POST['titre']) and isset($_POST['matiere']) a
 	}
 
 
-
-
 	if (empty($errors)){
 		echo "helllo" ;
 	$cours= new cours( $_POST['id'],$_POST['titre'],$_POST['matiere'],$_POST['annee']);
