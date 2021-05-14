@@ -1,4 +1,7 @@
+<?php 
 
+include ('../../config.php') ; 
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -82,14 +85,50 @@
       </div>
       <div class="row gy-4 mt-5 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
         <div id="searchbar">
-               
+                                     <?php 
+
+     if(isset($_GET['search'])){
+        $searchKey = $_GET['search'];
+        $sql = "SELECT * FROM cours WHERE matiere LIKE '%$searchKey%'";
+     }else
+     $sql = "SELECT * FROM cours";
+     $result = $conn->query($sql);
+   ?>
           <h1>Que voulez-vous chercher?</h1>
   <form action="" class="formulaire">
-   <input class="champ" type="text" value="Search...)"/>
-      <input class="bouton" type="button" value=" " />
+    <div class="col-md-12">
+                                <input type="text" name="search" class='form-control' placeholder="Search By Name"
+                                    value=<?php echo @$_GET['search']; ?>>
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <button class="btn btn-dark">Search</button>
+                            </div>
      
   </form>
   </div>
+  
+   <?php 
+    if(isset($_GET['search'])){
+   while( $row = $result->fetch_object() ): ?>
+
+                    <table id="tableid"  class="table table-bordered table-dark">
+                        <tr>
+                            
+                            <th>matiere</th>
+                            <th>titre</th>
+                            
+                        </tr>
+                        
+                        <tr>
+                            
+                            <td><?php echo $row->matiere; ?></td>
+                            <td><?php echo $row->titre; ?></td>
+                        </tr>
+                        <?php endwhile; 
+
+                        }?>
+                    </table>
+  }
       
   </section><!-- End Hero -->
 

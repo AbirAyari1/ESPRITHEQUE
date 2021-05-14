@@ -44,7 +44,6 @@ include ('../../config.php') ;
     <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/bootstrap-theme.min.css" />
-    <link rel="stylesheet" href="css/welcome.css">
     <link rel="stylesheet" href="css/font.css">
     <script src="js/jquery.js" type="text/javascript"></script>
     <script src="js/bootstrap.min.js" type="text/javascript"></script>
@@ -137,6 +136,49 @@ include ('../../config.php') ;
 
 
                 </div>
+                                              <?php 
+
+     if(isset($_GET['search'])){
+        $searchKey = $_GET['search'];
+        $sql = "SELECT * FROM cours WHERE matiere LIKE '%$searchKey%'";
+     }else
+     $sql = "SELECT * FROM cours";
+     $result = $conn->query($sql);
+   ?>
+         <h1>Que voulez-vous chercher?</h1>
+  <form action="" class="formulaire">
+    <div class="col-md-12">
+                                <input type="text" name="search" class='form-control' placeholder="Search By Name"
+                                    value=<?php echo @$_GET['search']; ?>>
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <button class="btn btn-dark">Search</button>
+                            </div>
+     
+  </form>
+  </div>
+  <?php 
+    if(isset($_GET['search'])){
+   while( $row = $result->fetch_object() ): ?>
+
+                    <table id="tableid"  class="table table-bordered table-dark">
+                        <tr>
+                            
+                            <th>matiere</th>
+                            <th>titre</th>
+                            
+                        </tr>
+                        
+                        <tr>
+                            
+                            <td><?php echo $row->matiere; ?></td>
+                            <td><?php echo $row->titre; ?></td>
+                        </tr>
+                        <?php endwhile; 
+
+                        }?>
+                    </table>
+  }
 
 
     </section>
@@ -162,49 +204,7 @@ include ('../../config.php') ;
                     </div>
                     <div class="card-body">
                         
-                                    <?php 
-
-     if(isset($_GET['search'])){
-        $searchKey = $_GET['search'];
-        $sql = "SELECT * FROM cours WHERE matiere LIKE '%$searchKey%'";
-     }else
-     $sql = "SELECT * FROM cours";
-     $result = $conn->query($sql);
-   ?>
-
-                        <form action="" method="GET">
-                            <div class="col-md-6">
-                                <input type="text" name="search" class='form-control' placeholder="Search By Name"
-                                    value=<?php echo @$_GET['search']; ?>>
-                            </div>
-                            <div class="col-md-6 text-left">
-                                <button class="btn btn-dark">Search</button>
-                            </div>
-                        </form>
-
-                        <br>
-                        <br>
-                    </div>
-
-                    <table id="tableid"  class="table table-bordered table-dark">
-                        <tr>
-                            <th>id</th>
-                            <th>matiere</th>
-                            <th>titre</th>
-                            <th>annee</th>
-                        </tr>
-                        <?php while( $row = $result->fetch_object() ): ?>
-                        <tr>
-                            <td><?php echo $row->id; ?></td>
-                            <td><?php echo $row->matiere; ?></td>
-                            <td><?php echo $row->titre; ?></td>
-                            <td><?php echo $row->annee; ?></td>
-                        </tr>
-                        <?php endwhile; ?>
-                    </table>
-                        </div>
-                    </div>
-                </div>
+                                    
                 <!-- End Hero -->
 
 
@@ -214,7 +214,7 @@ include ('../../config.php') ;
                     <div class="container" data-aos="fade-up">
 
                         <div class="row">
-                            <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
+                            <div class="col-lg-12 order-2 order-lg-3" data-aos="fade-left" data-aos-delay="100">
                                 <img src="assets/img/asma50.jpeg" class="img-fluid" alt="">
                             </div>
                             <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content" data-aos="fade-right"

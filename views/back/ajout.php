@@ -346,6 +346,7 @@ if (isset($_POST['upload'])) { // If isset upload button or not
    ?>
 
 								<?php
+                
 						if ($result->num_rows > 0) {
 						//output data of each row
 						while ($row = $result->fetch_assoc()) {
@@ -366,6 +367,7 @@ if (isset($_POST['upload'])) { // If isset upload button or not
                        
                       	}
 			}
+
 		?>
                                  
                     </tbody>
