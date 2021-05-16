@@ -16,19 +16,23 @@ if(empty($_SESSION['e'])){
    $userC = new userC();
    $listeU=$userC->afficherUserWithID($_SESSION['e']);
 
+   $mdp1="";
    
    foreach($listeU as $row){
         $image=$row['pic'];
         $id=$row['Id'];
+        $mdp1=$row['mdp'];
    }
 
-
-   if(isset($_POST['save'])){
+   /*if(isset($_POST['save'])){
     $user = new user($_POST["id2"],$_POST["first_name"],$_POST["last_name"],$_POST["email"],$_POST["phone"],$_POST["date"],$_POST["class"],$_POST["sexe"],$_POST["password"]);
-    $b=$userC->updateUser($user,$_POST["id2"]);  
-   header('Location: profil.php');
+    $b=$userC->updateUser($user,$_POST["id2"]); 
+    ?>
+    <script type=""> location.replace("../controller/update_user_suc.html");</script>
+ <?php 
+   //header('Location: profil.php');
    }
-
+*/
 
 
 
@@ -36,6 +40,9 @@ if(empty($_SESSION['e'])){
     if(isset($_POST['send'])){
         $reclamation = new reclamation($_POST["sujet"],$_POST["details"]);
         $r=$reclamationC->ajouterReclamation($reclamation,$_SESSION['e']);  
+        ?>
+        <script type=""> location.replace("../controller/ajout_rec_suc.html");</script>
+     <?php  
     }
    
 //if ($_SERVER['REQUEST_METHOD']=="POST")
@@ -51,8 +58,11 @@ if(empty($_SESSION['e'])){
 
    // if(file_exists($filename))
         $userC->ajouterimage($filename,$id);
+        ?>
+        <script type=""> location.replace("../controller/image_ajout_suc.html");</script>
+     <?php 
 
-header("Location:profil.php");
+//header("Location:profil.php");
 
 
 }else
@@ -77,6 +87,7 @@ header("Location:profil.php");
 <html lang="en">
 
 <head>
+
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -85,7 +96,7 @@ header("Location:profil.php");
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/favicon.jpg" rel="icon">
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
@@ -134,19 +145,14 @@ header("Location:profil.php");
 <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center justify-content-lg-between">
 
-        <h1 class="logo me-auto me-lg-0"><a href="index.html">Gp<span>.</span></a></h1>
+    <h1 class="logo me-auto me-lg-0 "><a href="index.html"><span>E</span>T<span>.</span></a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
-        <nav id="navbar" class="navbar  order-last order-lg-0">
+        <nav id="navbar" class="navbar ml-auto order-last order-lg-0">
             <ul>
-            <li><a class="nav-link scrollto " href="index.html">Accueil</a></li>
-                    <li><a class="nav-link scrollto" href="#about">Ouvrages</a></li>
-          <li><a class="nav-link scrollto" href="#services">Cours</a></li>
-          <li><a class="nav-link scrollto " href="#portfolio">Actualités</a></li>
-          <li><a class="nav-link scrollto" href="#team">Evènements</a></li>
-          <li><a class="nav-link scrollto" href="#team">Livres</a></li>
-                <li><a class="nav-link scrollto" href="deconnexion.php">déonnexion</a></li>
+            <li><a class="nav-link scrollto " href="index2.html">Accueil</a></li>
+                <li><a class="nav-link scrollto" href="deconnexion.php" >Déconnexion</a></li>
 
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
@@ -172,7 +178,7 @@ header("Location:profil.php");
         <div class="col-xl-2 col-md-4">
           <div class="icon-box">
             <i class="bx bx-library"></i>
-            <h3><a href="">Ouvrages</a></h3>
+            <h3><a href="Revues.php">Ouvrages</a></h3>
           </div>
         </div>
         <div class="col-xl-2 col-md-4">
@@ -184,19 +190,19 @@ header("Location:profil.php");
         <div class="col-xl-2 col-md-4">
           <div class="icon-box">
             <i class="bx bx-message-rounded-detail"></i>
-            <h3><a href="">Actualités</a></h3>
+            <h3><a href="forum-details.php">Actualités</a></h3>
           </div>
         </div>
         <div class="col-xl-2 col-md-4">
           <div class="icon-box">
             <i class="ri-calendar-todo-line"></i>
-            <h3><a href="">Evènements</a></h3>
+            <h3><a href="http://localhost/ESPRITHEQUE/views/evenements.php">Evènements</a></h3>
           </div>
         </div>
         <div class="col-xl-2 col-md-4">
           <div class="icon-box">
             <i class="bx bx-book"></i>
-            <h3><a href="">Livres</a></h3>
+            <h3><a href="Livres.php">Livres</a></h3>
           </div>
         </div>
         
@@ -255,7 +261,7 @@ header("Location:profil.php");
                     <div class="tab-content">
                         <div class="tab-pane " id="home">
                             <hr>
-                            <form class="form" action="##" method="POST" id="registrationForm">
+                            <form class="form"  id="registrationForm">
                             <div class="form-group">
 
                           <div class="col-xs-6">
@@ -384,12 +390,16 @@ header("Location:profil.php");
                                     </div>
                                 </div>
 
+                                <input type="text" required name="mdp2" class="form-control" id="mdpx" hidden>
+                                <input type="text" required name="mdpv" class="form-control" id="mdpv" value="<?php echo $mdp1;?>" hidden>
 
 
                                 <div class="form-group">
                                     <div class="col-xs-12">
                                         <br>
-                                        <button class="btn btn-lg btn-success" name="save" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ajoutModal">
+                                    Enregistrer
+                                     </button>
                                         
                                     </div>
                                 </div>
@@ -570,6 +580,40 @@ header("Location:profil.php");
 
     </section>
     <!--end connexion section-->
+    
+        <!-- Modal AJOUT  -->
+        <div class="modal fade" id="ajoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Confirmez votre identité</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div>
+
+                        <form method="post"  id="pass_val">
+
+
+                            <div class="col-12 col-md-9">
+                                <label>Votre mot de passe:</label>
+                                <input type="text" required name="mdp2" class="form-control" id="mdp2">
+                            </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="submit" name='ajout' class="btn btn-primary" onclick='sendData()' >Confirmer</button>
+
+                        <button type="reset" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
 
 </main><!-- End #main -->
@@ -620,7 +664,7 @@ header("Location:profil.php");
 <div id="preloader"></div>
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
         class="bi bi-arrow-up-short"></i></a>
-
+       
 <!-- Vendor JS Files -->
 <script src="assets/vendor/aos/aos.js"></script>
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -634,5 +678,29 @@ header("Location:profil.php");
 <script src="assets/js/main.js"></script>
 
 </body>
+<script>           
+function sendData()
+{
+event.preventDefault();
+document.getElementById("mdpx").value=document.getElementById("mdp2").value;
+let Form=document.getElementById("registrationForm");
+Form.action="verif_modif.php";
+Form.method="POST";
+Form.submit();
+
+
+}
+
+console.log(document.getElementById("registrationForm"));
+
+
+
+
+
+
+
+
+
+</script>
 
 </html>

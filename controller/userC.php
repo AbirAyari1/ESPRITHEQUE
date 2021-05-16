@@ -194,8 +194,7 @@ class userC {
         {die ('Erreur:'.$e->getMessage());}
     }
 
-
-
+    
 
 
 

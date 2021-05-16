@@ -242,11 +242,11 @@ if(isset($_POST['ASCU']))
           <h5 class="sidenav-heading">Menu</h5>
           <ul id="side-main-menu" class="side-menu list-unstyled">                  
             <li class="active"><a href="forms.html"> <i class="icon-user"></i>Etudiants</a></li>
-            <li><a href="index.html"> <i class="icon-bill"></i>Ouvrages</a></li>
-            <li><a href="charts.html"> <i class="icon-check"></i>Livres</a></li>
-            <li><a href="tables.html"> <i class="icon-clock"></i>Evènements</a></li>
-            <li><a href="login.html"> <i class="icon-pencil-case"></i>Cours </a></li>
-            <li> <a href="#"> <i class="icon-paper-airplane"></i>Actualités</a></li>
+            <li><a href="cathegorieProd.php?page=1"> <i class="icon-bill"></i>Ouvrages</a></li>
+            <li><a href="livres.php"> <i class="icon-check"></i>Livres</a></li>
+            <li><a href="evenements.php"> <i class="icon-clock"></i>Evènements</a></li>
+            <li><a href="../back/ajout.php"> <i class="icon-pencil-case"></i>Cours </a></li>
+            <li> <a href="ForumDash.php"> <i class="icon-paper-airplane"></i>Actualités</a></li>
           </ul>
         </div>
         
@@ -294,7 +294,7 @@ if(isset($_POST['ASCU']))
                 </li>
                
                 <!-- Log out-->
-                <li class="nav-item"><a href="login.html" class="nav-link logout"> <span class="d-none d-sm-inline-block">Se déconnecter</span><i class="fa fa-sign-out"></i></a></li>
+                <li class="nav-item"><a href="logad.php" class="nav-link logout"> <span class="d-none d-sm-inline-block">Se déconnecter</span><i class="fa fa-sign-out"></i></a></li>
               </ul>
             </div>
           </div>
@@ -340,14 +340,14 @@ if(isset($_POST['ASCU']))
                       <thead  class="thead-dark">
                         <tr>
                           <th>Identifiant</th>
-                          <th>Email</th>
+                          <th>Adresse Email</th>
                           <th>Nom</th>
                           <th>Préom</th>
                           <th>Numéro</th>
                           <th>Classe</th>
-                          <th>Date de Naissance</th>
+                          <th>Naissance</th>
                           <th>Sexe</th>
-                          <th>Mot de Passe</th>
+                          <th>Mdp</th>
                           <th>Image</th>
                           <th>Action</th>
                         </tr>
@@ -371,7 +371,7 @@ if(isset($_POST['ASCU']))
                            <form action="avertissement.php" method="POST">
                                <input type="hidden" name="avertissement" value="<?php echo $user['Id']; ?>" >
                               
-                               <button type="submit" class="btn btn-danger "  >  <i class="fa fa-exclamation-triangle" > </i></button>
+                               <button type="submit" class="btn btn-dark "  style="width:37px; height:37px;">  <i class="fa fa-exclamation-triangle" > </i></button>
                              </form>
                              <form action="supression.php" method="POST">
                                <input type="hidden" name="id" value="<?php echo $user['Id']; ?>" >
