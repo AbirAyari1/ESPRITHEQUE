@@ -5,6 +5,9 @@ $uc = new userC();
 
 if (isset($_POST['id']))
 {$uc->SupprimerUser($_POST['id']);
-    header('Location:forms.php');
+    ?>
+    <script type=""> location.replace("../../controller/sup_etu_suc.html");</script>
+ <?php   
+    //header('Location:forms.php');
 }
 ?>

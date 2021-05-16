@@ -56,19 +56,19 @@ $connection=mysqli_connect('localhost','root','','web');
         <div class="main-menu">
           <h5 class="sidenav-heading">Menu</h5>
           <ul id="side-main-menu" class="side-menu list-unstyled">                  
-            <li ><a href="forms.html"> <i class="icon-user"></i>Etudiants</a></li>
-            <li><a href="index.html"> <i class="icon-bill"></i>Ouvrages</a></li>
+            <li ><a href="forms.php"> <i class="icon-user"></i>Etudiants</a></li>
+            <li><a href="cathegorieProd.php?page=1"> <i class="icon-bill"></i>Ouvrages</a></li>
               <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i
                               class="icon-interface-windows"></i>Gestion des livres </a>
                   <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
-                      <li class="active" ><a href="livres.php"> <i class="icon-check"></i>Livres</a></li>
+                      <li class="active" ><a href="livres.php"> Livres</a></li>
                       <li><a href="categories.php">Categories</a></li>
 
                   </ul>
               </li>
-            <li><a href="tables.html"> <i class="icon-clock"></i>Evènements</a></li>
+            <li><a href="evenements.php"> <i class="icon-clock"></i>Evènements</a></li>
             <li><a href="login.html"> <i class="icon-pencil-case"></i>Cours </a></li>
-            <li> <a href="#"> <i class="icon-paper-airplane"></i>Actualités</a></li>
+            <li> <a href="ForumDash.php"> <i class="icon-paper-airplane"></i>Actualités</a></li>
           </ul>
         </div>
         
@@ -91,29 +91,6 @@ $connection=mysqli_connect('localhost','root','','web');
                  ?>
 
 
-                <li class="nav-item dropdown"> <a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-bell"></i><span class="badge badge-danger" id="count" ><?php echo $count; ?></span></a>
-                  <ul aria-labelledby="notifications" class="dropdown-menu">
-                    <?php 
-                    $sql_get1 = mysqli_query($connection,"SELECT * FROM reclamations WHERE status=0");
-                    if (mysqli_num_rows($sql_get1)>0)
-                  {
-                    while($result=mysqli_fetch_assoc($sql_get1))
-                    { 
-                      echo '<a class="dropdown-item text-dark font-weight-bold href="#">'.$result['Sujet'].'</a>';
-                      echo '<a class="dropdown-item text-danger href="#">'.$result['comment'].'</a>';
-                      echo '<div class="dropdown-divider"></div>';
-                      
-                    }
-                  }
-                  else 
-                  {
-                    echo "Pas de notifications";
-                  } ?>
-
-                          
-                    <li><a rel="nofollow" href="#rec" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-list"></i> Voir tous les détails</strong></a></li>
-                  </ul>
-                </li>
                
                 <!-- Log out-->
                 <li class="nav-item"><a href="login.html" class="nav-link logout"> <span class="d-none d-sm-inline-block">Se déconnecter</span><i class="fa fa-sign-out"></i></a></li>

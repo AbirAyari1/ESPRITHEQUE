@@ -49,7 +49,7 @@ session_start();
     <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
     <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link href="assets/css/stars.css" rel="stylesheet">
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
     <!-- Font Awesome Icon -->
@@ -62,7 +62,9 @@ session_start();
   * Template URL: https://bootstrapmade.com/gp-free-multipurpose-html-bootstrap-template/
     * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
+  
     ======================================================== -->
+    
 </head>
 <body>
 
@@ -70,23 +72,21 @@ session_start();
 <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center justify-content-lg-between">
 
-        <h1 class="logo me-auto me-lg-0"><a href="index.html">Gp<span>.</span></a></h1>
+    <h1 class="logo me-auto me-lg-0"><a href="index.html"><span>E</span>T<span>.</span></a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
-        <nav id="navbar" class="navbar  order-last order-lg-0">
+        <nav id="navbar" class="navbar ml-auto order-last order-lg-0">
             <ul>
-            <li><a class="nav-link scrollto " href="index.html">Accueil</a></li>
-                    <li><a class="nav-link scrollto" href="#about">Ouvrages</a></li>
-          <li><a class="nav-link scrollto" href="#services">Cours</a></li>
-          <li><a class="nav-link scrollto " href="#portfolio">Actualités</a></li>
-          <li><a class="nav-link scrollto" href="#team">Evènements</a></li>
-          <li><a class="nav-link scrollto" href="Livres.php">Livres</a></li>
+            <li><a class="nav-link scrollto " href="index2.html">Accueil</a></li>
+                    <li><a class="nav-link scrollto" href="profil.php">Profil</a></li>
+          
+
                 <?php
                 if (isset($_SESSION['e']))
                 {
                     ?>
-                <li><a class="nav-link scrollto" href="deconnexion.php">déonnexion</a></li>
+                <li><a class="nav-link scrollto" href="deconnexion.php">Déonnexion</a></li>
                 <?php
                 }
                 else {
@@ -117,16 +117,39 @@ session_start();
         </div>
       </div>
 
-        <div class="row gy-4 mt-5 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
-            <div class="col-xl-2 col-md-4">
-                <div class="icon-box2">
-                    <i class="bx bx-library"></i>
-                    <h3><a href="Livres.php">Livres Et Ouvrages</a></h3>
-                </div>
-            </div>
-
-
+      <div class="row gy-4 mt-5 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
+        <div class="col-xl-2 col-md-4">
+          <div class="icon-box">
+            <i class="bx bx-library"></i>
+            <h3><a href="Revues.php">Ouvrages</a></h3>
+          </div>
         </div>
+        <div class="col-xl-2 col-md-4">
+          <div class="icon-box">
+            <i class="bx bx-brain"></i>
+            <h3><a href="">Cours</a></h3>
+          </div>
+        </div>
+        <div class="col-xl-2 col-md-4">
+          <div class="icon-box">
+            <i class="bx bx-message-rounded-detail"></i>
+            <h3><a href="forum-details.php">Actualités</a></h3>
+          </div>
+        </div>
+        <div class="col-xl-2 col-md-4">
+          <div class="icon-box">
+            <i class="ri-calendar-todo-line"></i>
+            <h3><a href="http://localhost/ESPRITHEQUE/views/evenements.php">Evènements</a></h3>
+          </div>
+        </div>
+        <div class="col-xl-2 col-md-4">
+          <div class="icon-box">
+            <i class="bx bx-book"></i>
+            <h3><a href="Livres.php">Livres</a></h3>
+          </div>
+        </div>
+        
+      </div>
 
     </div>
   </section><!-- End Hero -->
@@ -333,14 +356,7 @@ session_start();
                                             <h2 class="product-name"><a
                                                         href="Livres_details?id=<?php echo $row["ID"]; ?>"><?php echo $row["titre"]; ?></a>
                                             </h2>
-                                            <div class="product-btns">
-                                                <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-                                                <button class="main-btn icon-btn"><i class="fa fa-exchange"></i>
-                                                </button>
-                                                <button class="primary-btn add-to-cart"><i
-                                                            class="fa fa-shopping-cart"></i> Acheter
-                                                </button>
-                                            </div>
+                                            
                                         </div>
                                     </div>
 

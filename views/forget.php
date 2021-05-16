@@ -1,4 +1,7 @@
-
+<?php 
+session_start();
+$_SESSION['xxx']=!isset($_SESSION['xxx'])?" ":$_SESSION['xxx'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -136,6 +139,7 @@
             <br>
                        
             <div class="btn-login"><button type="submit" name="reset_request_submit">chercher</button></div><br>
+            <p> <?php echo $_SESSION['xxx']?> </p>
           </form>
          
         </div>

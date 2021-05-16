@@ -166,9 +166,13 @@ if(isset($_POST['ASCU']))
           <h5 class="sidenav-heading">Menu</h5>
           <ul id="side-main-menu" class="side-menu list-unstyled">                  
             <li><a href="forms.php"> <i class="icon-user"></i>Etudiants</a></li>
-            <li><a href="index.html"> <i class="icon-bill"></i>Ouvrages</a></li>
+            <li><a href="cathegorieProd.php?page=1"> <i class="icon-bill"></i>Ouvrages</a></li>
+
             <li><a href="livres.php"> <i class="icon-check"></i>Livres</a></li>
-            <li><a href="evenement.php"> <i class="icon-clock"></i>Evènements</a></li>
+            
+            <li><a href="evenements.php"> <i class="icon-clock"></i>Evenements</a></li>
+           
+          
             <li><a href="login.html"> <i class="icon-pencil-case"></i>Cours </a></li>
             <li class="active"><a href="ForumDash.php"> <i class="icon-pencil-case"></i>Acutalités</a></li>
           </ul>
@@ -197,7 +201,7 @@ if(isset($_POST['ASCU']))
 
                
                 <!-- Log out-->
-                <li class="nav-item"><a href="login.html" class="nav-link logout"> <span class="d-none d-sm-inline-block">Se déconnecter</span><i class="fa fa-sign-out"></i></a></li>
+                <li class="nav-item"><a href="logad.php" class="nav-link logout"> <span class="d-none d-sm-inline-block">Se déconnecter</span><i class="fa fa-sign-out"></i></a></li>
               </ul>
             </div>
           </div>

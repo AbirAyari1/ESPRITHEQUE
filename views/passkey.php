@@ -4,6 +4,7 @@ include "../config.php";
 include_once '../model/user.php';
 include_once '../controller/userC.php';
 $message2="";
+session_start();
 
 if (isset($_POST['reset_request_submit']) && (!empty($_POST["email"]))) 
 { 
@@ -37,17 +38,21 @@ if (isset($_POST['reset_request_submit']) && (!empty($_POST["email"])))
        ';
        
        mail($_POST["email"], "Mot de Passe", $message, $header);
-       header('location:connexion.php');
+       ?>
+       <script type=""> location.replace("../controller/suc_mdp.html");</script>
+       <?php    
+       //header('location:connexion.php');
        }
         else{
           $message2='Désolé, votre Adresse est inexistante';
-          header('location:forget1.php');
+          $_SESSION['xxx']=$message2;
+          header('location:forget.php');
       }
     }
       else 
       {
       $message2 = "Merci de saisir votre Adresse Email pour pouvoir récupérer votre mot de passe";
-      header('location:forget2.php');
+      header('location:forget.php');
       }
 
  

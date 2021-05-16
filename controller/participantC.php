@@ -1,5 +1,5 @@
 <?php
-include "../config.php";
+
 
 
   class ParticipantC
@@ -165,6 +165,21 @@ $req->bindValue(':Idevenement',$Idevenement);
         catch (Exception $e)
         {die ('Erreur:'.$e->getMessage());}
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

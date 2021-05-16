@@ -1,4 +1,5 @@
 <?PHP
+include_once '../config.php';
 include "../model/participant.php";
 include "../controller/participantC.php";
 

@@ -49,7 +49,10 @@ if (isset($_POST['avertissement']))
    ';
    
    mail( $mail , "Avertissement", $message, $header);
-   header('location: forms.php');
+   ?>
+   <script type=""> location.replace("../../controller/avertiss_suc.html");</script>
+<?php  
+   //header('location: forms.php');
    }
 
 

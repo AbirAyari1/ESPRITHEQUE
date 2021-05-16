@@ -161,7 +161,8 @@ if (isset($_POST["id"]) &&
             </div>
             <br>
             <div class="btn-login"><button type="submit" >Connexion</button></div><br>
-            <a href="forget.php"> Mot de passe oublié? <a>
+            <a href="forget.php"> Mot de passe oublié? <a> <br>
+            <a href="admin/logad.php"> Espace Admin <a>
           </form>
           
           <?php

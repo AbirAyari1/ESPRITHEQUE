@@ -18,7 +18,7 @@ function test_input($data) {
 
 
     if(isset($_POST['ajouterCommentaire'])){
-        $sujet = $_POST['sujet'];
+        $sujet = $_POST["sujet"];
         $comment = $_POST['comment'];
         $email = $_POST['email'];
         $idforum = $_POST['idforum'];

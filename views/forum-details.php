@@ -4,7 +4,7 @@
     require_once '../controller/CForum.php';
     include_once '../controller/commentaireC.php';
     include_once '../model/commentaire.php';
-    
+    session_start();
     
     $connection=mysqli_connect('localhost','root','','web');
     $result1=mysqli_query($connection, "SELECT  * FROM forum");
@@ -161,36 +161,46 @@ if(isset($_POST['ASCU']))
 
 <body>
 
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top ">
+ <!-- ======= Header ======= -->
+<header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center justify-content-lg-between">
 
-      <h1 class="logo me-auto me-lg-0"><a href="index.html"><span>E</span>T<span>.</span></a></h1>
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+    <h1 class="logo me-auto me-lg-0"><a href="index.html"><span>E</span>T<span>.</span></a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
-      <nav id="navbar" class="navbar order-last order-lg-0">
-        
+        <nav id="navbar" class="navbar ml-auto order-last order-lg-0">
             <ul>
-              <li><a class="nav-link scrollto " active href="index.html">Accueil</a></li>
-          <li><a class="nav-link scrollto" href="#Create">Inscription</a></li>
-          <li><a class="nav-link scrollto" href="#about">Ouvrages</a></li>
-          <li><a class="nav-link scrollto" href="#services">Cours</a></li>
-          <li><a class="nav-link scrollto " href="#portfolio">Actualités</a></li>
-          <li><a class="nav-link scrollto" href="#team">Evènements</a></li>
-          <li><a class="nav-link scrollto" href="#team">Livres</a></li>
-          <li><a class="nav-link scrollto" href="#Connexion">Connexion</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
+            <li><a class="nav-link scrollto " href="index2.html">Accueil</a></li>
+                    <li><a class="nav-link scrollto" href="profil.php">Profil</a></li>
+          
 
-      
+                <?php
+                if (isset($_SESSION['e']))
+                {
+                    ?>
+                <li><a class="nav-link scrollto" href="deconnexion.php">Déonnexion</a></li>
+                <?php
+                }
+                else {
+                    ?>
+                    <li><a class="nav-link scrollto" active href="connexion.php">Connexion</a></li>
+                <?php
+                }
+                ?>
+
+
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
+
+        
 
     </div>
-  </header><!-- End Header -->
+</header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex align-items-center justify-content-center">
+<section id="hero" class="d-flex align-items-center justify-content-center">
     <div class="container" data-aos="fade-up">
 
       <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
@@ -204,36 +214,44 @@ if(isset($_POST['ASCU']))
         <div class="col-xl-2 col-md-4">
           <div class="icon-box">
             <i class="bx bx-library"></i>
-            <h3><a href="details-forumLivres">Livres</a></h3>
+            <h3><a href="Revues.php">Ouvrages</a></h3>
           </div>
         </div>
         <div class="col-xl-2 col-md-4">
           <div class="icon-box">
             <i class="bx bx-brain"></i>
-            <h3><a href="details-forumExamens.php">Examens</a></h3>
+            <h3><a href="">Cours</a></h3>
           </div>
         </div>
         <div class="col-xl-2 col-md-4">
           <div class="icon-box">
             <i class="bx bx-message-rounded-detail"></i>
-            <h3><a href="details-forumRevision.php">Révisions</a></h3>
+            <h3><a href="forum-details.php">Actualités</a></h3>
           </div>
         </div>
         <div class="col-xl-2 col-md-4">
           <div class="icon-box">
             <i class="ri-calendar-todo-line"></i>
-            <h3><a href="details-forumInfo.php">Informatiques</a></h3>
+            <h3><a href="http://localhost/ESPRITHEQUE/views/evenements.php">Evènements</a></h3>
           </div>
         </div>
         <div class="col-xl-2 col-md-4">
           <div class="icon-box">
             <i class="bx bx-book"></i>
-            <h3><a href="details-forumAutres.php">Autres</a></h3>
+            <h3><a href="Livres.php">Livres</a></h3>
           </div>
         </div>
         
       </div>
-
+      <br> <br>
+      <div class="row gy-4 mt-5 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
+      <div class="col-xl-2 col-md-4"> <h2><a href="details-forumLivres.php">Livres</a></h2> </div>
+      <div class="col-xl-2 col-md-4"> <h2><a href="details-forumInfo.php">Informatique</a></h2> </div>
+      <div class="col-xl-2 col-md-4"> <h2><a href="details-forumRevision.php">Révision</a></h2> </div>
+      <div class="col-xl-2 col-md-4"> <h2><a href="details-forumExamens.php">Examens</a></h2> </div>
+      <div class="col-xl-2 col-md-4"> <h2><a href="details-forumAutres.php">Autres</a></h2> </div>
+              </div>
+        
     </div>
   </section><!-- End Hero -->
 <section>

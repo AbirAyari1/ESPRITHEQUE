@@ -5,6 +5,9 @@ $rc = new reclamationC();
 
 if (isset($_POST['idr']))
 {$rc->SupprimerReclamation($_POST['idr']);
-    header('Location:forms.php');
+    ?>
+        <script type=""> location.replace("../../controller/sup_rec_suc.html");</script>
+     <?php   
+    //header('Location:forms.php');
 }
 ?>

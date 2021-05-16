@@ -56,8 +56,8 @@ $connection=mysqli_connect('localhost','root','','web');
         <div class="main-menu">
           <h5 class="sidenav-heading">Menu</h5>
           <ul id="side-main-menu" class="side-menu list-unstyled">                  
-            <li><a href="forms.html"> <i class="icon-user"></i>Etudiants</a></li>
-            <li><a href="index.html"> <i class="icon-bill"></i>Ouvrages</a></li>
+            <li><a href="forms.php"> <i class="icon-user"></i>Etudiants</a></li>
+            <li><a href="cathegorieProd.php?page=1"> <i class="icon-bill"></i>Ouvrages</a></li>
 
               <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i
                               class="icon-interface-windows"></i>Gestion des livres </a>
@@ -68,9 +68,9 @@ $connection=mysqli_connect('localhost','root','','web');
                   </ul>
               </li>
 
-            <li><a href="tables.html"> <i class="icon-clock"></i>Evènements</a></li>
+            <li><a href="evenements.php"> <i class="icon-clock"></i>Evènements</a></li>
             <li><a href="login.html"> <i class="icon-pencil-case"></i>Cours </a></li>
-            <li> <a href="#"> <i class="icon-paper-airplane"></i>Actualités</a></li>
+            <li> <a href="ForumDash.php"> <i class="icon-paper-airplane"></i>Actualités</a></li>
           </ul>
         </div>
         

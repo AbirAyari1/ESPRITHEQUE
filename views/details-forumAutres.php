@@ -5,7 +5,7 @@
     include_once '../controller/commentaireC.php';
     include_once '../model/commentaire.php';
     
-    
+    session_start();
     $connection=mysqli_connect('localhost','root','','web');
     $result1=mysqli_query($connection, "SELECT  * FROM forum");
 
@@ -160,37 +160,46 @@ if(isset($_POST['ASCU']))
 </head>
 
 <body>
-
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top ">
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center justify-content-lg-between">
 
-      <h1 class="logo me-auto me-lg-0"><a href="index.html"><span>E</span>T<span>.</span></a></h1>
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+    <h1 class="logo me-auto me-lg-0"><a href="index.html"><span>E</span>T<span>.</span></a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
-      <nav id="navbar" class="navbar order-last order-lg-0">
-        
+        <nav id="navbar" class="navbar ml-auto order-last order-lg-0">
             <ul>
-              <li><a class="nav-link scrollto " active href="index.html">Accueil</a></li>
-          <li><a class="nav-link scrollto" href="#Create">Inscription</a></li>
-          <li><a class="nav-link scrollto" href="#about">Ouvrages</a></li>
-          <li><a class="nav-link scrollto" href="#services">Cours</a></li>
-          <li><a class="nav-link scrollto " href="#portfolio">Actualités</a></li>
-          <li><a class="nav-link scrollto" href="#team">Evènements</a></li>
-          <li><a class="nav-link scrollto" href="#team">Livres</a></li>
-          <li><a class="nav-link scrollto" href="#Connexion">Connexion</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
+            <li><a class="nav-link scrollto " href="index2.html">Accueil</a></li>
+                    <li><a class="nav-link scrollto" href="profil.php">Profil</a></li>
+          
 
-      
+                <?php
+                if (isset($_SESSION['e']))
+                {
+                    ?>
+                <li><a class="nav-link scrollto" href="deconnexion.php">Déonnexion</a></li>
+                <?php
+                }
+                else {
+                    ?>
+                    <li><a class="nav-link scrollto" active href="connexion.php">Connexion</a></li>
+                <?php
+                }
+                ?>
+
+
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
+
+        
 
     </div>
-  </header><!-- End Header -->
+</header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex align-items-center justify-content-center">
+<section id="hero" class="d-flex align-items-center justify-content-center">
     <div class="container" data-aos="fade-up">
 
       <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
@@ -204,36 +213,44 @@ if(isset($_POST['ASCU']))
         <div class="col-xl-2 col-md-4">
           <div class="icon-box">
             <i class="bx bx-library"></i>
-            <h3><a href="details-forumLivres.php">Livres</a></h3>
+            <h3><a href="Revues.php">Ouvrages</a></h3>
           </div>
         </div>
         <div class="col-xl-2 col-md-4">
           <div class="icon-box">
             <i class="bx bx-brain"></i>
-            <h3><a href="details-forumExamens.php">Examens</a></h3>
+            <h3><a href="">Cours</a></h3>
           </div>
         </div>
         <div class="col-xl-2 col-md-4">
           <div class="icon-box">
             <i class="bx bx-message-rounded-detail"></i>
-            <h3><a href="details-forumRevision.php">Revisions</a></h3>
+            <h3><a href="forum-details.php">Actualités</a></h3>
           </div>
         </div>
         <div class="col-xl-2 col-md-4">
           <div class="icon-box">
             <i class="ri-calendar-todo-line"></i>
-            <h3><a href="details-forumInfo.php">Informatiques</a></h3>
+            <h3><a href="http://localhost/ESPRITHEQUE/views/evenements.php">Evènements</a></h3>
           </div>
         </div>
         <div class="col-xl-2 col-md-4">
           <div class="icon-box">
             <i class="bx bx-book"></i>
-            <h3><a href="">Autres</a></h3>
+            <h3><a href="Livres.php">Livres</a></h3>
           </div>
         </div>
         
       </div>
-
+      <br> <br>
+      <div class="row gy-4 mt-5 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
+      <div class="col-xl-2 col-md-4"> <h2><a href="details-forumLivres.php">Livres</a></h2> </div>
+      <div class="col-xl-2 col-md-4"> <h2><a href="details-forumInfo.php">Informatique</a></h2> </div>
+      <div class="col-xl-2 col-md-4"> <h2><a href="details-forumRevision.php">Révision</a></h2> </div>
+      <div class="col-xl-2 col-md-4"> <h2><a href="details-forumExamens.php">Examens</a></h2> </div>
+      <div class="col-xl-2 col-md-4"> <h2><a href="details-forumAutres.php">Autres</a></h2> </div>
+              </div>
+        
     </div>
   </section><!-- End Hero -->
 <section>
@@ -273,37 +290,54 @@ if(isset($_POST['ASCU']))
                            <?php
                           } ?>
 </section>
-   <section id="Create" class="Create">
-   <div class="row">
-            <div class="col-lg-6">
+<section id="Create" class="Create">
+      <div class="container" data-aos="fade-up">
               <div >
-                <div class="card-header d-flex align-items-center">
-                  <h4>Ajouter un Forum</h4>
-                </div>
-                <div >
-                  <p>Veuillez remplir les champs suivants:</p>
+                
+              <div class="section-title">
+          <h2>Autres</h2>
+          <p>Ajouter un Sujet </p>
+        </div>
                   <form  method="POST" onsubmit="return verif()"  action="ProcessForum.php" > 
-                    <div class="form-group">
-                      <label>Nom</label>
-                      <input type="text" name="name" id="name" class="form-control"  value="<?php if (isset($nom)) echo $nom; ?>" >
-                    </div>
-                    <div class="form-group">
-                      <label>Sujet</label>
-                      <input type="text"  name="cont" id="cont" class="form-control" value="<?php if (isset($contenu)) echo $contenu ?>"  >
-                    </div>
-
+                  
+                  <br>
+                </br>  
+                <div class="col-lg-8 mt-5 mt-lg-0">
+          <form action="" method="post" >
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <td> <b>Id</b> </td>
+              </div>
+              <div class="col-md-6 form-group">
+                <input type="text" name="name" class="form-control" id="name"  maxlength="20" disabled>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <td> <b> sujet </b></td>
+              </div>
+              <div class="col-md-6 form-group mt-3 mt-md-0">
+                <input type="cont" class="form-control" name="cont" id="cont"  required>
+              </div>
+            </div>
                   
 
                   
-                    <div class="form-group">
-                    <label>Type</label>
-                      <select class="form-control" name="typp" id="typp"  >
+            <br>
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <td> <b> Type </b> </td>
+              </div>
+              <div class="col-md-6 form-group">
+                <select class="form-control" name="typp" id="typp">
                   <option value="Autres">Autres</option>
                   
-                  </select>
-
-                  </div>
-
+                    </select>
+              </div>
+            </div>
+            <br>
+                          </br>
                   <button  name="submit" class="btn btn-dark" style="margin-left:170px;"> ajouter</button>
                     
                   </form>
@@ -311,8 +345,6 @@ if(isset($_POST['ASCU']))
               </div>
             </div>
     </section>
-
-    
     <!--end connexion section-->
 
     <div class="container-fluid">

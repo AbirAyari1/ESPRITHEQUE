@@ -4,11 +4,15 @@
     require_once '../controller/CForum.php';
     include_once '../controller/commentaireC.php';
     include_once '../model/commentaire.php';
-    
+    include_once '../model/user.php';
+    include_once '../controller/userC.php';
+    session_start();
     
     $connection=mysqli_connect('localhost','root','','web');
     $result1=mysqli_query($connection, "SELECT  * FROM forum");
-
+    $userC = new userC();
+    $listeX=$userC->afficherUserWithID($_SESSION['e']);
+   
 
 
     $CForum = new CForum();
@@ -162,35 +166,45 @@ if(isset($_POST['ASCU']))
 <body>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top ">
+<header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center justify-content-lg-between">
 
-      <h1 class="logo me-auto me-lg-0"><a href="index.html"><span>E</span>T<span>.</span></a></h1>
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+    <h1 class="logo me-auto me-lg-0"><a href="index.html"><span>E</span>T<span>.</span></a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
-      <nav id="navbar" class="navbar order-last order-lg-0">
-        
+        <nav id="navbar" class="navbar ml-auto order-last order-lg-0">
             <ul>
-              <li><a class="nav-link scrollto " active href="index.html">Accueil</a></li>
-          <li><a class="nav-link scrollto" href="#Create">Inscription</a></li>
-          <li><a class="nav-link scrollto" href="#about">Ouvrages</a></li>
-          <li><a class="nav-link scrollto" href="#services">Cours</a></li>
-          <li><a class="nav-link scrollto " href="#portfolio">Actualités</a></li>
-          <li><a class="nav-link scrollto" href="#team">Evènements</a></li>
-          <li><a class="nav-link scrollto" href="#team">Livres</a></li>
-          <li><a class="nav-link scrollto" href="#Connexion">Connexion</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
+            <li><a class="nav-link scrollto " href="index2.html">Accueil</a></li>
+                    <li><a class="nav-link scrollto" href="profil.php">Profil</a></li>
+          
 
-      
+                <?php
+                if (isset($_SESSION['e']))
+                {
+                    ?>
+                <li><a class="nav-link scrollto" href="deconnexion.php">Déonnexion</a></li>
+                <?php
+                }
+                else {
+                    ?>
+                    <li><a class="nav-link scrollto" active href="connexion.php">Connexion</a></li>
+                <?php
+                }
+                ?>
+
+
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
+
+        
 
     </div>
-  </header><!-- End Header -->
+</header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex align-items-center justify-content-center">
+<section id="hero" class="d-flex align-items-center justify-content-center">
     <div class="container" data-aos="fade-up">
 
       <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
@@ -204,36 +218,44 @@ if(isset($_POST['ASCU']))
         <div class="col-xl-2 col-md-4">
           <div class="icon-box">
             <i class="bx bx-library"></i>
-            <h3><a href="details-forumLivres">Livres</a></h3>
+            <h3><a href="Revues.php">Ouvrages</a></h3>
           </div>
         </div>
         <div class="col-xl-2 col-md-4">
           <div class="icon-box">
             <i class="bx bx-brain"></i>
-            <h3><a href="details-forumExamens.php">Examens</a></h3>
+            <h3><a href="">Cours</a></h3>
           </div>
         </div>
         <div class="col-xl-2 col-md-4">
           <div class="icon-box">
             <i class="bx bx-message-rounded-detail"></i>
-            <h3><a href="details-forumRevision.php">Révisions</a></h3>
+            <h3><a href="forum-details.php">Actualités</a></h3>
           </div>
         </div>
         <div class="col-xl-2 col-md-4">
           <div class="icon-box">
             <i class="ri-calendar-todo-line"></i>
-            <h3><a href="details-forumInfo.php">Informatiques</a></h3>
+            <h3><a href="http://localhost/ESPRITHEQUE/views/evenements.php">Evènements</a></h3>
           </div>
         </div>
         <div class="col-xl-2 col-md-4">
           <div class="icon-box">
             <i class="bx bx-book"></i>
-            <h3><a href="details-forumAutres.php">Autres</a></h3>
+            <h3><a href="Livres.php">Livres</a></h3>
           </div>
         </div>
         
       </div>
-
+      <br> <br>
+      <div class="row gy-4 mt-5 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
+      <div class="col-xl-2 col-md-4"> <h2><a href="details-forumLivres.php">Livres</a></h2> </div>
+      <div class="col-xl-2 col-md-4"> <h2><a href="details-forumInfo.php">Informatique</a></h2> </div>
+      <div class="col-xl-2 col-md-4"> <h2><a href="details-forumRevision.php">Révision</a></h2> </div>
+      <div class="col-xl-2 col-md-4"> <h2><a href="details-forumExamens.php">Examens</a></h2> </div>
+      <div class="col-xl-2 col-md-4"> <h2><a href="details-forumAutres.php">Autres</a></h2> </div>
+              </div>
+        
     </div>
   </section><!-- End Hero -->
 <section>
@@ -263,7 +285,8 @@ while ($ms = $stmt1->fetch(PDO::FETCH_ASSOC)) {
   
 
     ?>
-    <div class="p-t-80 p-b-124 bo5-r p-r-50 h-full p-r-0-md bo-none-md">
+    <section id="Create" class="Create">
+      <div class="container" data-aos="fade-up">
 							<!-- Block4 -->
 							<div class="blo4 p-b-63">
 								<!-- - -->
@@ -272,7 +295,7 @@ while ($ms = $stmt1->fetch(PDO::FETCH_ASSOC)) {
 								<!-- - -->
 								<div class="text-blo4 p-t-33">
 									<h4 >
-                  <center> <font size="+2.5"> <text> <?php echo $contenu; ?></text></font></center>
+                  <center> <font color="maroon" size="+3"> <text> <?php echo $contenu; ?></text></font></center>
 									</h4>
 								<?php
 							}
@@ -293,7 +316,7 @@ while ($ms = $stmt1->fetch(PDO::FETCH_ASSOC)) {
 								</div>
    
                                 <div>
-                <span><B><U><font size="+2"> Réponse :</B></U></font></span>
+                <span><B><U><font color="maroon" size="+2"> Réponse :</B></U></font></span>
                
 
 
@@ -313,21 +336,29 @@ $idForum = $_GET['idForum'];
     
               foreach($commentaireC as $comm):
             ?>
+              <section id="Create" class="Create">
+      <div class="container" data-aos="fade-up">
+							<!-- Block4 -->
+							<div class="blo4 p-b-63">
               <p>⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</p>
+              <form>
                 <div><span><b><b>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</b> <font size="+1">  <?= $comm['sujet'];?></b></font></span></div>
                 <p><span><b>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</b>  <?= $comm['date'];?></span></p>
-                <p><span> <b>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</b>  <?= $comm['comment'];?></span></p>
+                <p><span> <b>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp -</b>  <?= $comm['comment'];?></span></p>
                 
               </div>
+              </form>
               <?php endforeach; ?>
               </div>
     <!--end connexion section-->
 
-    <div class="container-fluid">
+    <section id="Create" class="Create">
+      <div class="container" data-aos="fade-up">
     
           <!-- formulaire ajouter commentaire-->
-          <span><B><U> <font size="+2"> Ajouter Réponses </B></U></font></span>
-                
+          <div class="card-header d-flex align-items-center">
+          <span> <font color="maroon" size="+2"> Ajouter Réponses </font></span>
+                </div>
           <form class="form-size" action="processCommentaire.php" method="post">
           <?php
           require_once "./db.php"; //la connexion avec la bd
@@ -335,28 +366,53 @@ $idForum = $_GET['idForum'];
 
 
 
-           ?>      
-          <div class="form-group">
-                    <label for="exampleInputNom">nom</label>
-                    <input type="text" name="sujet" class="form-control" id="exampleInputNom" aria-describedby="emailHelp"placeholder="Nom"  >
-                </div>
-                 
-                <div class="form-group">
-                    <label for="exampleInputNom">commentaire</label>
-                    <input type="text" name="comment" class="form-control" id="exampleInputNom" aria-describedby="emailHelp" placeholder="Commentaire">
-                </div>
-                <div class="col-xs-6">
-                                        <label for="email"><h4>Email</h4></label>
-                                        <input type="email" class="form-control" name="email" id="email"
-                                               placeholder="moi.you@esprit.tn" title="entrez votre email.">
+           ?>    
+            <br>
+                </br>  
+                <div class="col-lg-8 mt-5 mt-lg-0">
+          <form action="" method="post" >
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <td> Votre Identifiant: </td>
+              </div>
+              <div class="col-md-6 form-group">
+                <input type="text" name="sujet" class="form-control" id="sujet" >
+              </div>
+            </div>
+              
+               
+            <br>
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <td> Votre Adresse Email: </td>
+              </div>
+              <div class="col-md-6 form-group mt-3 mt-md-0">
+                <input type="email" class="form-control" name="email" id="email" >
+              </div>
+            </div>
                 
+            <br>
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <td> Votre Commentaire: </td>
+              </div>
+              <div class="col-md-6 form-group mt-3 mt-md-0">
+              <textarea name="comment" id="comment" rows="10" cols="50" required></textarea> 
+              </div>
+            </div>
+
                     <input  type="hidden" name="idforum" class="form-control" id="exampleInputNom" aria-describedby="emailHelp"placeholder=" " value=<?php echo $idForum; ?>>
                 </div>
-                <button  type="submit" name="ajouterCommentaire" class="btn btn-outline-success my-2 my-sm-0">Ajouter Commentaire</button>
+           
+            
+                <br>
+                </br>
+                <button  type="submit" name="ajouterCommentaire" class="btn btn-danger">Ajouter Commentaire</button>
             </form>
         </div>
 
-
+              </div>
+              </section>
   <!-- ======= Footer ======= -->
   <footer id="footer">
     <div class="footer-top">
