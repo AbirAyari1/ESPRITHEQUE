@@ -61,7 +61,7 @@ if (isset($_POST['upload'])) { // If isset upload button or not
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Bootstrap CSS-->
+     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome CSS-->
     <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
@@ -77,9 +77,6 @@ if (isset($_POST['upload'])) { // If isset upload button or not
     <link rel="stylesheet" href="css/style.red.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="css/custom.css">
-    <link rel="stylesheet" href="css/welcome.css">
-    <link  rel="stylesheet" href="css/font.css">
-    <link rel="stylesheet"  href="css/style1.css">
 
     <link rel="stylesheet" href="https://cdn.datatables.net/autofill/2.3.6/css/autoFill.bootstrap4.min.css">
     <script src="js/jquery.js" type="text/javascript"></script>
@@ -163,6 +160,7 @@ if (isset($_POST['upload'])) { // If isset upload button or not
                 <div class="col-xl-8 col-lg-8">
                   
                 </div>
+               
               </div>
         <form name="f1" method="POST" onsubmit="return verif()"action="ajoutcours.php" >
                     <section id="main-container">
@@ -171,7 +169,9 @@ if (isset($_POST['upload'])) { // If isset upload button or not
                           
                              <div class="row">
                                 <div class="col-md-10">
-                                    <p>Ajouter des cours </p>
+                                  <div class="text-center">
+                                    <h3>Ajouter des cours </h3>
+                                  </div>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
@@ -231,7 +231,10 @@ if (isset($_POST['upload'])) { // If isset upload button or not
                                             <button class="btn btn-primary solid blank" type="submit">Login</button>
                                         </div>
                                 </div>-->
+                                
                             </div>
+                            <td><a class="btn btn-sm btn-success" href="upload.php">UPLOAD</a></td>
+                            <td><a class="btn btn-sm btn-success" href="ajoutquiz.php">ADD QUIZ</a></td>
                         </div>
                         <!--/ container end -->
                      </section>
@@ -242,29 +245,7 @@ if (isset($_POST['upload'])) { // If isset upload button or not
           
         </div>
       </section>
-                <body>
-              <div class="file__upload1">
-                <div class="header">
-                  <p><i class="fa fa-cloud-upload fa-2x"></i><span><span>up</span>load</span></p>     
-                </div>
-                <form action="" method="POST" enctype="multipart/form-data" class="body">
-                  <!-- Sharable Link Code -->
-                  <input type="checkbox1" id="link_checkbox">
-                  <input type="text" value="<?php echo $link; ?>" id="link" readonly>
-                  <label for="link_checkbox1" style="<?php echo $link_status; ?>">Get Sharable Link</label>
-
-                  <input type="file" name="file" id="upload" required>
-                  <label for="upload">
-                    <i class="fa fa-file-text-o fa-3x"></i>
-                    <p>
-                      <strong>Drag and drop</strong> files here<br>
-                      or <span>browse</span> to begin the upload
-                    </p>
-                  </label>
-                  <button name="upload" class="btn1">Upload</button>
-                </form>
-              </div>
-            </body>
+                
       <header>
           <h1 class="text-center">Tables </h1>
         </header>
@@ -272,17 +253,10 @@ if (isset($_POST['upload'])) { // If isset upload button or not
         <div class="align-text-top">
           <div class="col-mg-6">
             <div class="card">
-              <div class="card-header">
-                <h4>Liste des cours</h4> <br>
-                  <form method="POST">
-                  <input type="text" name="search" placeholder="valeur à chercher" value="<?php echo @$_GET['search']; ?>" style="width:150px  ; height:39px;">
-                 
-                 <button class="btn btn-dark" name="search"  > search <i class="fa fa-search" > </i></button>
-                 <button type="submit" class="btn btn-danger pull-right " name="ASCU" value="ASCU">  <i class="fa fa-sort-up"> </i></button>
-                  <button type="submit" class="btn btn-danger pull-right" style="margin-right:10px;"  name="DSCU" value="DSCU" >  <i class="fa fa-sort-down"> </i></button><br><br>
-                
-              </form>
-                <h4>Cours</h4>
+              <div class="text-center">
+                <br> 
+                <h3>Liste des cours</h3> <br>
+                  
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -345,7 +319,7 @@ if (isset($_POST['upload'])) { // If isset upload button or not
                       <td><?php echo $row['matiere']; ?></td>
                       <td><?php echo $row['titre']; ?></td>
                       <td><?php echo $row['annee']; ?></td>
-                      <td><a class="btn btn-info" href="update.php?id=<?php echo $row['id']; ?>">Edit</a>&nbsp;<a class="btn btn-danger" href="delete.php?id=<?php 	 ; echo $row['id']; ?>">Delete</a></td>
+                      <td><a class="btn btn-sm btn-success" href="update.php?id=<?php echo $row['id']; ?>">Edit</a>&nbsp;<a class="btn btn-sm btn-danger" href="delete.php?id=<?php 	 ; echo $row['id']; ?>">Delete</a></td>
                       </tr>
 
                       <?php	
@@ -357,11 +331,10 @@ if (isset($_POST['upload'])) { // If isset upload button or not
                                  
                     </tbody>
                   </table>
-                  
                 </div>
               </div>
             </div>
-            <td><a class="btn btn-info" href="ajoutquiz.php">ADD QUIZ</a></td>
+            
           </div>
         </div>
       </div>

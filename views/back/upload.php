@@ -1,6 +1,6 @@
 <?php 
 
-include '../../config.php';
+include '../../config1.php';
 
 $link = "";
 $link_status = "display: none;";
@@ -53,7 +53,7 @@ if (isset($_POST['upload'])) { // If isset upload button or not
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-	<link rel="stylesheet"  href="style.css">
+	<link rel="stylesheet"  href="css/style1.css">
 
 	<title>File Upload PHP Script - Pure Coding</title>
 </head>
