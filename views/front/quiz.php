@@ -1,352 +1,155 @@
-<?php
-    include_once '../../config1.php';
-   
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-
+<!DOCTYPE>
+<html>
+<?php require '../../config1.php';
+session_start(); ?>
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Technopoints Quiz</title>
+<style>
+body {
+    background: url("bg.jpg");
+  background-size:100%;
+  background-repeat: no-repeat;
+  position: relative;
+  background-attachment: fixed;
+}
+/* button */
+.button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #8c2302;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 500px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
 
-  <title>Gp Bootstrap Template - Index</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
 
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
 
-  <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-    rel="stylesheet">
+.button:hover span {
+  padding-right: 25px;
+}
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+.title{
+  background-color: #565656;
+  font-size: 28px;
+  padding: 20px;
+  
+}
+.button3 {
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+.button3 {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #631c06;
+}
 
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: Gp - v4.1.0
-  * Template URL: https://bootstrapmade.com/gp-free-multipurpose-html-bootstrap-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+.button3:hover {
+    background-color: #631c06;
+    color: Black;
+}
+</style>
 </head>
-
-<body>
-
- <!-- ======= Header ======= -->
-<header id="header" class="fixed-top ">
-    <div class="container d-flex align-items-center justify-content-lg-between">
-
-    <h1 class="logo me-auto me-lg-0"><a href="index.html"><span>E</span>T<span>.</span></a></h1>
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-
-        <nav id="navbar" class="navbar ml-auto order-last order-lg-0">
-            <ul>
-            <li><a class="nav-link scrollto " href="index2.html">Accueil</a></li>
-                    <li><a class="nav-link scrollto" href="profil.php">Profil</a></li>
-          
-
-                <?php
-                if (isset($_SESSION['e']))
-                {
-                    ?>
-                <li><a class="nav-link scrollto" href="deconnexion.php">Déonnexion</a></li>
-                <?php
-                }
-                else {
-                    ?>
-                    <li><a class="nav-link scrollto" active href="connexion.php">Connexion</a></li>
-                <?php
-                }
-                ?>
-
-
-            </ul>
-            <i class="bi bi-list mobile-nav-toggle"></i>
-        </nav><!-- .navbar -->
-
-        
-
-    </div>
-</header><!-- End Header -->
-
-  <!-- ======= Hero Section ======= -->
-<section id="hero" class="d-flex align-items-center justify-content-center">
-    <div class="container" data-aos="fade-up">
-
-      <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
-        <div class="col-xl-6 col-lg-8">
-          <h1><span>ESPRIT</span>thèque<span>.</span></h1>
-          <h2>Se documenter autrement</h2>
-        </div>
-      </div>
-
-      <div class="row gy-4 mt-5 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
-        <div class="col-xl-2 col-md-4">
-          <div class="icon-box">
-            <i class="bx bx-library"></i>
-            <h3><a href="Revues.php">Ouvrages</a></h3>
-          </div>
-        </div>
-        <div class="col-xl-2 col-md-4">
-          <div class="icon-box">
-            <i class="bx bx-brain"></i>
-            <h3><a href="">Cours</a></h3>
-          </div>
-        </div>
-        <div class="col-xl-2 col-md-4">
-          <div class="icon-box">
-            <i class="bx bx-message-rounded-detail"></i>
-            <h3><a href="forum-details.php">Actualités</a></h3>
-          </div>
-        </div>
-        <div class="col-xl-2 col-md-4">
-          <div class="icon-box">
-            <i class="ri-calendar-todo-line"></i>
-            <h3><a href="http://localhost/ESPRITHEQUE/views/evenements.php">Evènements</a></h3>
-          </div>
-        </div>
-        <div class="col-xl-2 col-md-4">
-          <div class="icon-box">
-            <i class="bx bx-book"></i>
-            <h3><a href="Livres.php">Livres</a></h3>
-          </div>
-        </div>
-        
-      </div>
-      <br> <br>
-      <div class="row gy-4 mt-5 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
-      <div class="col-xl-2 col-md-4"> <h2><a href="">1ère anneé</a></h2> </div>
-      <div class="col-xl-2 col-md-4"> <h2><a href="">2ème anneé</a></h2> </div>
-      <div class="col-xl-2 col-md-4"> <h2><a href="">3ème anneé</a></h2> </div>
-      <div class="col-xl-2 col-md-4"> <h2><a href="">4ème anneé</a></h2> </div>
-      <div class="col-xl-2 col-md-4"> <h2><a href="quiz.php">Quiz</a></h2> </div>
-              </div>
-        
-    </div>
-  </section>
-        <a class="navbar-brand" href="#"><b>Online Quiz System</b></a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-left">
-            <li <?php if(@$_GET['q']==1) echo'class="active"'; ?> ><a href="quiz.php?q=1"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;Home<span class="sr-only">(current)</span></a></li>&nbsp;
-            <li <?php if(@$_GET['q']==2) echo'class="active"'; ?>> <a href="quiz.php?q=2"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp;History</a></li>&nbsp;
-            <li <?php if(@$_GET['q']==3) echo'class="active"'; ?>> <a href="quiz.php?q=3"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span>&nbsp;Ranking</a></li>&nbsp;
-        </div>
-    </div>
-    </nav>
-    <br><br>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <?php if(@$_GET['q']==1) 
-                {
-                    $result = mysqli_query($conn,"SELECT * FROM quiz ORDER BY date DESC") or die('Error');
-                    echo  '<div class="panel"><div class="table-responsive"><table class="table table-striped title1">
-                    <tr><td><center><b>S.N.</b></center></td><td><center><b>Topic</b></center></td><td><center><b>Total question</b></center></td><td><center><b>Marks</center></b></td><td><center><b>Action</b></center></td></tr>';
-                    $c=1;
-                    while($row = mysqli_fetch_array($result)) {
-                        $title = $row['title'];
-                        $total = $row['total'];
-                        $sahi = $row['sahi'];
-                        $eid = $row['eid'];
-                    $q12=mysqli_query($conn,"SELECT score FROM history WHERE eid='$eid' AND email='$email'" )or die('Error98');
-                    $rowcount=mysqli_num_rows($q12);	
-                    if($rowcount == 0){
-                        echo '<tr><td><center>'.$c++.'</center></td><td><center>'.$title.'</center></td><td><center>'.$total.'</center></td><td><center>'.$sahi*$total.'</center></td><td><center><b><a href="quiz.php?q=quiz&step=2&eid='.$eid.'&n=1&t='.$total.'" class="btn sub1" style="color:black;margin:0px;background:#1de9b6"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>&nbsp;<span class="title1"><b>Start</b></span></a></b></center></td></tr>';
-                    }
-                    else
-                    {
-                    echo '<tr style="color:#99cc32"><td><center>'.$c++.'</center></td><td><center>'.$title.'&nbsp;<span title="This quiz is already solve by you" class="glyphicon glyphicon-ok" aria-hidden="true"></span></center></td><td><center>'.$total.'</center></td><td><center>'.$sahi*$total.'</center></td><td><center><b><a href="update.php?q=quizre&step=25&eid='.$eid.'&n=1&t='.$total.'" class="pull-right btn sub1" style="color:black;margin:0px;background:red"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>&nbsp;<span class="title1"><b>Restart</b></span></a></b></center></td></tr>';
-                    }
-                    }
-                    $c=0;
-                    echo '</table></div></div>';
-                }?>
-
-                <?php
-                    if(@$_GET['q']== 'quiz' && @$_GET['step']== 2) 
-                    {
-                        $eid=@$_GET['eid'];
-                        $sn=@$_GET['n'];
-                        $total=@$_GET['t'];
-                        $q=mysqli_query($conn,"SELECT * FROM questions WHERE eid='$eid' AND sn='$sn' " );
-                        echo '<div class="panel" style="margin:5%">';
-                        while($row=mysqli_fetch_array($q) )
-                        {
-                            $qns=$row['qns'];
-                            $qid=$row['qid'];
-                            echo '<b>Question &nbsp;'.$sn.'&nbsp;::<br /><br />'.$qns.'</b><br /><br />';
-                        }
-                        $q=mysqli_query($conn,"SELECT * FROM options WHERE qid='$qid' " );
-                        echo '<form action="update.php?q=quiz&step=2&eid='.$eid.'&n='.$sn.'&t='.$total.'&qid='.$qid.'" method="POST"  class="form-horizontal">
-                        <br />';
-
-                        while($row=mysqli_fetch_array($q) )
-                        {
-                            $option=$row['option'];
-                            $optionid=$row['optionid'];
-                            echo'<input type="radio" name="ans" value="'.$optionid.'">&nbsp;'.$option.'<br /><br />';
-                        }
-                        echo'<br /><button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>&nbsp;Submit</button></form></div>';
-                    }
-
-                    if(@$_GET['q']== 'result' && @$_GET['eid']) 
-                    {
-                        $eid=@$_GET['eid'];
-                        $q=mysqli_query($conn,"SELECT * FROM history WHERE eid='$eid' AND email='$email' " )or die('Error157');
-                        echo  '<div class="panel">
-                        <center><h1 class="title" style="color:#660033">Result</h1><center><br /><table class="table table-striped title1" style="font-size:20px;font-weight:1000;">';
-
-                        while($row=mysqli_fetch_array($q) )
-                        {
-                            $s=$row['score'];
-                            $w=$row['wrong'];
-                            $r=$row['sahi'];
-                            $qa=$row['level'];
-                            echo '<tr style="color:#66CCFF"><td>Total Questions</td><td>'.$qa.'</td></tr>
-                                <tr style="color:#99cc32"><td>right Answer&nbsp;<span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></td><td>'.$r.'</td></tr> 
-                                <tr style="color:red"><td>Wrong Answer&nbsp;<span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></td><td>'.$w.'</td></tr>
-                                <tr style="color:#66CCFF"><td>Score&nbsp;<span class="glyphicon glyphicon-star" aria-hidden="true"></span></td><td>'.$s.'</td></tr>';
-                        }
-                        $q=mysqli_query($conn,"SELECT * FROM rank WHERE  email='$email' " )or die('Error157');
-                        while($row=mysqli_fetch_array($q) )
-                        {
-                            $s=$row['score'];
-                            echo '<tr style="color:#990000"><td>Overall Score&nbsp;<span class="glyphicon glyphicon-stats" aria-hidden="true"></span></td><td>'.$s.'</td></tr>';
-                        }
-                        echo '</table></div>';
-                    }
-                ?>
-
-                <?php
-                    if(@$_GET['q']== 2) 
-                    {
-                        $q=mysqli_query($conn,"SELECT * FROM history WHERE email='$email' ORDER BY date DESC " )or die('Error197');
-                        echo  '<div class="panel title">
-                        <table class="table table-striped title1" >
-                        <tr style="color:black;"><td><center><b>S.N.</b></center></td><td><center><b>Quiz</b></center></td><td><center><b>Question Solved</b></center></td><td><center><b>Right</b></center></td><td><center><b>Wrong<b></center></td><td><center><b>Score</b></center></td>';
-                        $c=0;
-                        while($row=mysqli_fetch_array($q) )
-                        {
-                        $eid=$row['eid'];
-                        $s=$row['score'];
-                        $w=$row['wrong'];
-                        $r=$row['sahi'];
-                        $qa=$row['level'];
-                        $q23=mysqli_query($conn,"SELECT title FROM quiz WHERE  eid='$eid' " )or die('Error208');
-
-                        while($row=mysqli_fetch_array($q23) )
-                        {  $title=$row['title'];  }
-                        $c++;
-                        echo '<tr><td><center>'.$c.'</center></td><td><center>'.$title.'</center></td><td><center>'.$qa.'</center></td><td><center>'.$r.'</center></td><td><center>'.$w.'</center></td><td><center>'.$s.'</center></td></tr>';
-                        }
-                        echo'</table></div>';
-                    }
-
-                    if(@$_GET['q']== 3) 
-                    {
-                        $q=mysqli_query($conn,"SELECT * FROM rank ORDER BY score DESC " )or die('Error223');
-                        echo  '<div class="panel title"><div class="table-responsive">
-                        <table class="table table-striped title1" >
-                        <tr style="color:red"><td><center><b>Rank</b></center></td><td><center><b>Name</b></center></td><td><center><b>Email</b></center></td><td><center><b>Score</b></center></td></tr>';
-                        $c=0;
-
-                        while($row=mysqli_fetch_array($q) )
-                        {
-                            $e=$row['email'];
-                            $s=$row['score'];
-                            $q12=mysqli_query($conn,"SELECT * FROM user WHERE email='$e' " )or die('Error231');
-                            while($row=mysqli_fetch_array($q12) )
-                            {
-                                $name=$row['name'];
-                            }
-                            $c++;
-                            echo '<tr><td style="color:black"><center><b>'.$c.'</b></center></td><td><center>'.$name.'</center></td><td><center>'.$e.'</center></td><td><center>'.$s.'</center></td></tr>';
-                        }
-                        echo '</table></div></div>';
-                    }
-                ?>
+<body><center>
+<div class="title">Espritheque</div>
+<?php                               
+                                if (isset($_POST['click']) || isset($_GET['start'])) {
+                                @$_SESSION['clicks'] += 1 ;
+                                $c = $_SESSION['clicks'];
+                                if(isset($_POST['userans'])) { $userselected = $_POST['userans'];
+                                
+                                $fetchqry2 = "UPDATE `quiz` SET `userans`='$userselected' WHERE `id`=$c-1"; 
+                                $result2 = mysqli_query($conn,$fetchqry2);
+                                }
+      
+                                  
+                                } else {
+                                  $_SESSION['clicks'] = 0;
+                                }
+                                
+                                //echo($_SESSION['clicks']);
+                                ?>
+<div class="bump"><br><form><?php if($_SESSION['clicks']==0){ ?> <button class="button" name="start" float="left"><span>START QUIZ</span></button> <?php } ?></form></div>
+<form action="" method="post">          
+<table><?php if(isset($c)) {   $fetchqry = "SELECT * FROM `quizc` where id='$c'"; 
+        $result=mysqli_query($conn,$fetchqry);
+        $num=mysqli_num_rows($result);
+        $row = mysqli_fetch_array($result,MYSQLI_ASSOC); }
+      ?>
+<tr><td><h3><br><?php echo @$row['que'];?></h3></td></tr> <?php if($_SESSION['clicks'] > 0 && $_SESSION['clicks'] < 6){ ?>
+  <tr><td><input required type="radio" name="userans" value="<?php echo $row['option1'];?>">&nbsp;<?php echo $row['option1']; ?><br>
+  <tr><td><input required type="radio" name="userans" value="<?php echo $row['option2'];?>">&nbsp;<?php echo $row['option2'];?></td></tr>
+  <tr><td><input required type="radio" name="userans" value="<?php echo $row['option3'];?>">&nbsp;<?php echo $row['option3']; ?></td></tr>
+  <tr><td><input required type="radio" name="userans" value="<?php echo $row['option4'];?>">&nbsp;<?php echo $row['option4']; ?><br><br><br></td></tr>
+  <tr><td><button class="button3" name="click" >Next</button></td></tr> <?php }  
+                                  ?> 
+  <form>
+ <?php if($_SESSION['clicks']>5){ 
+  $qry3 = "SELECT `ans`, `userans` FROM `quizc`;";
+  $result3 = mysqli_query($conn,$qry3);
+  $storeArray = Array();
+  while ($row3 = mysqli_fetch_array($result3, MYSQLI_ASSOC)) {
+     if($row3['ans']==$row3['userans']){
+     @$_SESSION['score'] += 1 ;
+   }
+}
  
-
-    <!-- ======= Contact Section ======= -->
-    <!-- End Contact Section -->
-  </main><!-- End #main -->
-
-            <!-- ======= Footer ======= -->
-            <footer id="footer">
-                <div class="footer-top">
-                    <div class="container">
-                        <div class="row">
-
-
-                            <div class="col-lg-3 col-md-6 footer-links">
-                                <h4>Contact:</h4>
-                                <ul>
-                                    <li><i class="bx bx-chevron-right"></i> <a href="#"> <strong>
-                                                Téléphone:</strong> +216 55 622 768<br></a></li>
-                                    <li><i class="bx bx-chevron-right"></i> <a href="#"><strong> Adresse:</strong>
-                                            El Ghazela<br></a></li>
-                                    <li><i class="bx bx-chevron-right"></i> <a href="#"><strong> Email:</strong>
-                                            Esprithèque@esprit.tn <br></a></li>
-                                    <div class="social-links mt-3">
-                                        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                                        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                                        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-                                        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-                                        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-                                    </div>
-                                </ul>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="container">
-                    <div class="copyright">
-                        &copy; Copyright <strong><span>Gp</span></strong>. All Rights Reserved
-                    </div>
-                    <div class="credits">
-                        <!-- All the links in the footer should remain intact. -->
-                        <!-- You can delete the links only if you purchased the pro version. -->
-                        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/gp-free-multipurpose-html-bootstrap-template/ -->
-                        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-                    </div>
-                </div>
-            </footer><!-- End Footer -->
-
-            <div id="preloader"></div>
-            <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-                    class="bi bi-arrow-up-short"></i></a>
-
-            <!-- Vendor JS Files -->
-            <script src="assets/vendor/aos/aos.js"></script>
-            <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-            <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-            <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-            <script src="assets/vendor/php-email-form/validate.js"></script>
-            <script src="assets/vendor/purecounter/purecounter.js"></script>
-            <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-
-            <!-- Template Main JS File -->
-            <script src="assets/js/main.js"></script>
-
-    </body>
+ ?> 
+ 
+ 
+ <h2>Result</h2>
+ <span>No. of Correct Answer:&nbsp;<?php echo $no = @$_SESSION['score']; 
+ session_unset(); ?></span><br>
+ <span>Your Score:&nbsp<?php echo $no*2; ?></span>
+<?php } ?>
+ <!-- <script type="text/javascript">
+    function radioValidation(){
+    /* var useransj = document.getElementById('rd').value;
+        //document.cookie = "username = " + userans;
+    alert(useransj); */
+    var uans = document.getElementsByName('userans');
+    var tok;
+    for(var i = 0; i < uans.length; i++){
+      if(uans[i].checked){
+        tok = uans[i].value;
+        alert(tok);
+      }
+    }
+    }
+</script> -->
+</center>
+</body>
 </html>

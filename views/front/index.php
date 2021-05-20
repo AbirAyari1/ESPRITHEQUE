@@ -195,7 +195,7 @@ session_start();
                         <?php endwhile; 
 
                         }?>
-                        }
+                        
                     </table>     
 
 

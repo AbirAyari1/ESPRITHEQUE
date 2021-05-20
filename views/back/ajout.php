@@ -216,6 +216,82 @@ if (isset($_POST['upload'])) { // If isset upload button or not
 
 
                                         </div>
+                                    
+                                
+                                    </form>
+                                </div>
+
+                                 <form name="f1" method="POST" onsubmit="return verif()"action="ajoutquiz.php" >
+                    <section id="main-container">
+                        <div class="container">
+                        
+                          
+                             <div class="row">
+                                <div class="col-md-10">
+                                  <div class="text-center">
+                                    <h3>Ajouter  quiz </h3>
+                                  </div>
+                                        <div class="row">
+                                          <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>id</label>
+                                                    <input class="form-control" name="id" id="id" placeholder="question" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Question</label>
+                                                    <input class="form-control" name="que" id="que" placeholder="question" type="text">
+                                                </div>
+                                            </div>
+                                          
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>option 1 </label>
+                                                    <input class="form-control" name="option1" id="option1"required pattern="[0-9\a-zA-Z-\.]" placeholder="Votre option" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>option 2 </label>
+                                                    <input class="form-control" name="option2" id="option2"required pattern="[0-9\a-zA-Z-\.]" placeholder="Votre option" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>option 3 </label>
+                                                    <input class="form-control" name="option3" id="option3"required pattern="[0-9\a-zA-Z-\.]" placeholder="Votre option" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>option 4 </label>
+                                                    <input class="form-control" name="option4" id="option4"required pattern="[0-9\a-zA-Z-\.]" placeholder="Votre option" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>answer </label>
+                                                    <input class="form-control" name="ans" id="ans"required pattern="[0-9\a-zA-Z-\.]" placeholder="Votre option" type="text">
+                                                </div>
+                                            </div>
+                                               <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>user answer </label>
+                                                    <input class="form-control" name="userans" id="userans"required pattern="[0-9\a-zA-Z-\.]" placeholder="Votre option" type="text">
+                                                </div>
+                                            </div>
+
+                                            
+                                       
+                                     
+                                        
+                                        <div class="text-right"><br>
+                              
+                                            <button class="btn btn-primary solid blank" type="submit" name="submit" >Ajouter</button>
+
+
+                                        </div>
 
                                     </form>
                                 </div>
@@ -233,10 +309,10 @@ if (isset($_POST['upload'])) { // If isset upload button or not
                                 </div>-->
                                 
                             </div>
-                            <td><a class="btn btn-sm btn-success" href="upload.php">UPLOAD</a></td>
-                            <td><a class="btn btn-sm btn-success" href="ajoutquiz.php">ADD QUIZ</a></td>
+                           
                         </div>
                         <!--/ container end -->
+                         <td><a class="btn btn-sm btn-success" href="upload.php">UPLOAD</a></td>
                      </section>
                     </form>
               
@@ -261,9 +337,6 @@ if (isset($_POST['upload'])) { // If isset upload button or not
               <div class="card-body">
                 <div class="table-responsive">
                   <table class="table">
-                    <thead>
-                     
-                                                           </thead>
                     <tbody>
 
                   
@@ -328,6 +401,100 @@ if (isset($_POST['upload'])) { // If isset upload button or not
 			}
 
 		?>
+                                 
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+           <div class="align-text-top">
+          <div class="col-mg-6">
+            <div class="card">
+              <div class="text-center">
+                <br> 
+                <h3>Liste QUIZ</h3> <br>
+                  
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <tbody>
+
+                  
+
+                   
+               <div class="card-body">
+                  <div class="table-responsive">
+                    <table id="datatableid" class="table table-striped table-sm">
+                      <thead  class="thead-dark">
+                        <tr>
+                          
+                        
+                          <th>id</th>
+                          <th>question</th>
+                          <th>option 1 </th>
+                          <th>option 2 </th>
+                           <th>option 3 </th>
+                          <th>option  4</th>
+                          <th>answer </th>
+                          <th>user answer</th>
+                          <th>actions</th>
+                        </tr>
+                        <?php 
+                
+
+                //write the query to get data from users table
+
+                $sql = "SELECT * FROM quizc";
+
+                //execute the query
+
+                $result =$conn->query($sql);
+
+
+                ?>
+                <?php 
+
+     if(isset($_GET['search'])){
+        $searchKey = $_GET['search'];
+        $sql = "SELECT * FROM quizc WHERE que LIKE '%$searchKey%'";
+     }else
+     $sql = "SELECT * FROM quizc";
+     $result = $conn->query($sql);
+   ?>
+
+                <?php
+                
+            if ($result->num_rows > 0) {
+            //output data of each row
+            while ($row = $result->fetch_assoc()) {
+                ?>
+                      
+                    </thead>
+                    <tbody>
+
+                      <tr>
+                      <td><?php echo $row['id']; ?></td>
+                      <td><?php echo $row['que']; ?></td>
+                      <td><?php echo $row['option1']; ?></td>
+                      <td><?php echo $row['option2']; ?></td>
+                      <td><?php echo $row['option3']; ?></td>
+                      <td><?php echo $row['option4']; ?></td>
+                      <td><?php echo $row['ans']; ?></td>
+                      <td><?php echo $row['userans']; ?></td>
+                      <td><a class="btn btn-sm btn-success" href="updateQ.php?id=<?php echo $row['id']; ?>">edit</a>&nbsp;
+                        <a class="btn btn-sm btn-danger" href="deletequiz.php?id=<?php echo $row['id']; ?>">Delete</a></td>
+                      
+                      </tr>
+
+                      <?php 
+                       
+                        }
+      }
+
+    ?>
                                  
                     </tbody>
                   </table>

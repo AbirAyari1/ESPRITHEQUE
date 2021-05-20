@@ -1,52 +1,94 @@
 <?php
-class cours
+class quiz
 {
-    private $idquiz;
-	private $titrequiz;
-	private $options;
-	function __construct($idquiz,$titrequiz,$options)
+    private $id;
+	private $que;
+	private $option1;
+    private $option2;
+    private $option3;
+    private $option4;
+    private $ans;
+    private $userans;
+	function __construct($id,$que,$option1,$option2,$option3,$option4,$ans,$userans)
 	{
-        $this->idquiz=$idquiz;
-        $this->titrequiz=$titrequiz;
-        $this->options=$options;
+        $this->id=$id;
+        $this->que=$que;
+        $this->option1=$option1;
+        $this->option2=$option2;
+         $this->option3=$option3;
+        $this->option4=$option4;
+        $this->ans=$ans;
+        $this->userans=$userans;
         
 	}
-    function getIdquiz()
+    function getid()
     {
-        return $this->idquiz;
+        return $this->id;
+    }
+    function getque()
+    {
+        return $this->que;
     }
 
-    }
-    function gettitre()
+    
+    function getoption1()
     {
-        return $this->titrequiz;
+        return $this->option1;
     }
-    function getoptions()
+    function getoption2()
     {
-        return $this->options;
+        return $this->option2;
+    }
+    function getoption3()
+    {
+        return $this->option3;
+    }
+    function getoption4()
+    {
+        return $this->option4;
+    }
+    function getans()
+    {
+        return $this->ans;
     }
    
-    function getquiz()
+    function getuserans()
     {
-        return $this->quiz;
-    }   
-    function setIdquiz($idquiz)
+        return $this->userans;
+    } 
+    function setid($que)
     {
-        $this->idquiz = $idquiz;
+        $this->id = $id;
+    }  
+    function setque($que)
+    {
+        $this->que = $que;
     }
 
-     function settitrequiz($titrequiz)
+     function setoption1($option1)
     {
-        $this->titrequiz = $titrequiz;
+        $this->option1 = $option1;
     }
-     function setoptions($options)
+    function setoption2($option2)
     {
-        $this->options = $options;
+        $this->option2 = $option2;
+    }
+    function setoption3($option3)
+    {
+        $this->option3 = $option3;
+    }
+    function setoption4($option4)
+    {
+        $this->option4 = $option4;
+    }
+     function setans($ans)
+    {
+        $this->ans = $ans;
     }
 
-    function setquiz($quiz)
+    function setuserans($userans)
     {
-        $this->quiz = $quiz;
+        $this->userans = $userans;
     }
 }
 ?>
